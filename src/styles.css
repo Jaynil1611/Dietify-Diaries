@@ -1,0 +1,29 @@
+:root {
+  --background-color: #ffffff;
+  --text-color: #000000;
+  --text-white: rgba(255, 255, 255, 0.92);
+}
+
+body {
+  color: var(--text-color);
+}
+
+.heading {
+  display: flex;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 9;
+  padding: 0.5rem 1rem;
+  justify-content: space-between;
+  align-items: center;
+  box-shadow: 0 2px 5px rgb(0 0 0 / 20%);
+  border-radius: 10px;
+  background-color: var(--background-color);
+}
+
+.main-content {
+  margin-top: 30%;
+  margin-bottom: 2rem;
+}
