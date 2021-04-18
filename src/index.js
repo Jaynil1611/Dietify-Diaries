@@ -6,7 +6,6 @@ import { setupMockServer } from "./server";
 import { BrowserRouter as Router } from "react-router-dom";
 
 setupMockServer();
-
 ReactDOM.render(
   <React.StrictMode>
     <VideoContextProvider>

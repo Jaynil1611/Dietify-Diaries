@@ -2,6 +2,7 @@
   --background-color: #ffffff;
   --text-color: #000000;
   --text-white: rgba(255, 255, 255, 0.92);
+  
 }
 
 body {
@@ -15,7 +16,7 @@ body {
   left: 0;
   right: 0;
   z-index: 9;
-  padding: 0.5rem 1rem;
+  padding: 1rem 0.5rem;
   justify-content: space-between;
   align-items: center;
   box-shadow: 0 2px 5px rgb(0 0 0 / 20%);
@@ -26,4 +27,57 @@ body {
 .main-content {
   margin-top: 30%;
   margin-bottom: 2rem;
+  transition: 0.3s ease-in-out;
+}
+
+ul {
+  margin-block-start: 0;
+  margin-block-end: 0;
+  padding-inline-start: 0;
+}
+
+.heading--spacing {
+  padding-left: 4rem;
+}
+
+.spacing--top {
+  padding-top: 0.5rem;
+}
+
+.mobile-menu {
+  display: flex;
+  flex-flow: column wrap;
+  position: fixed;
+  padding-top: 0.3rem;
+}
+
+.side-bar {
+  visibility: hidden;
+  position: fixed;
+  top: 0;
+  right: 0;
+  left: 0;
+  bottom: 0;
+  opacity: 0;
+  transition: 0.4s ease-in-out;
+}
+
+.side-bar.show {
+  display: block;
+  visibility: visible;
+  opacity: 1;
+}
+
+.side-menu {
+  position: fixed;
+  top: 6rem;
+  width: 80%;
+  height: 100%;
+  transform: translate(-100%);
+  transition: transform 0.4s ease-in-out;
+}
+
+.side-menu.view {
+  transform: translateX(0);
+  transition: transform 0.4s ease-in-out;
 }

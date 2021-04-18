@@ -1,0 +1,55 @@
+.video-showcase {
+  display: grid;
+  grid-template-columns: 1fr;
+  grid-gap: 0.5rem;
+  margin: 1rem 0;
+}
+
+.card--video {
+  position: relative;
+  padding: 0;
+  border: none;
+  margin: 0.5rem;
+  justify-content: flex-start;
+  background: var(--background-color);
+  box-shadow: 0 5px 10px rgb(0 0 0 / 20%);
+}
+
+.card__content--align {
+  display: flex;
+  position: relative;
+  flex: 1;
+  padding: 0;
+  flex-direction: column;
+  width: 100%;
+}
+
+.video--details {
+  display: flex;
+}
+
+.video--info {
+  /* margin: 1rem; */
+}
+
+.video--title {
+  display: -webkit-box;
+  max-height: 2.5em;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  line-height: 1.25;
+  text-overflow: ellipsis;
+}
+
+.badge--position {
+  top: 67%;
+  right: 0.3rem;
+  color: var(--background-color);
+  padding: 0.1rem;
+}
+
+.img--vsm {
+  width: 4rem;
+  height: 4rem;
+}

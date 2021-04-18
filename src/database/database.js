@@ -1,6 +1,6 @@
-// import { callMockServer } from "../server";
-import { actions } from "../reducers";
-import { videoData } from "./videoDataModel";
+import { callMockServer } from "../server";
+// import { actions } from "../reducers";
+// import { videoData } from "./videoDataModel";
 
 async function createDatabase(dispatch) {
   // const { response: playlistResponse, error } = await fetchDataFromURL(
@@ -12,28 +12,28 @@ async function createDatabase(dispatch) {
   //       id: item.contentDetails.videoId,
   //     };
   //   });
-
   // const videoList = await videoIds.reduce(async (result, { id }) => {
-  //   const { response: videResponse, error } = await fetchDataFromURL(
+  //   const { response: videoResponse, error } = await fetchDataFromURL(
   //     getVideoURL(id)
   //   );
   //   if (!error) {
   //     const res = await result;
-  //     return [...res, getVideoDetails(videResponse.data.items[0])];
+  //     return [...res, getVideoDetails(videoResponse.data.items[0])];
   //   }
   //   return result;
   // }, []);
-  dispatch({
-    type: actions.INITIALIZE_LIST,
-    payload: {
-      name: "videoList",
-      // data: videoList,
-      data: videoData,
-    },
-  });
+  // console.log(videoList);
+  // dispatch({
+  //   type: actions.INITIALIZE_LIST,
+  //   payload: {
+  //     name: "videoList",
+  //     // data: videoList,
+  //     data: videoData,
+  //   },
+  // });
 }
 
-// const fetchDataFromURL = async (url) => {
+// const fetchDataFromURL = (url) => {
 //   return callMockServer({ type: "get", url });
 // };
 
@@ -74,7 +74,7 @@ async function createDatabase(dispatch) {
 //     title,
 //     description,
 //     thumbnails: {
-//       default: { url: thumbnailUrl },
+//       high: { url: thumbnailUrl },
 //     },
 //     channelTitle,
 //     tags,
