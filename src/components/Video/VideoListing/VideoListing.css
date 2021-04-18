@@ -24,15 +24,11 @@
   width: 100%;
 }
 
-.video--details {
+.video__captions {
   display: flex;
 }
 
-.video--info {
-  /* margin: 1rem; */
-}
-
-.video--title {
+.video__title {
   display: -webkit-box;
   max-height: 2.5em;
   -webkit-line-clamp: 2;
@@ -43,13 +39,19 @@
 }
 
 .badge--position {
-  top: 67%;
+  top: 57%;
   right: 0.3rem;
   color: var(--background-color);
   padding: 0.1rem;
 }
 
-.img--vsm {
+.img--msm {
   width: 4rem;
   height: 4rem;
+}
+
+.video__date {
+  padding-top: 0.2rem;
+  display: flex;
+  justify-content: space-between;
 }
