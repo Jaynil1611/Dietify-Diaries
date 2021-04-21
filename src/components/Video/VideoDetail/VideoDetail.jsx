@@ -65,12 +65,12 @@ const VideoComponents = ({
     <div className="video__detail">
       <ul className="list--inline li__wrapper">
         {tags?.slice(0, 2).map((tag) => (
-          <li key={tag} className="li__tag">
+          <li key={tag} className="li__tag body--md">
             #{tag}
           </li>
         ))}
       </ul>
-      <div className="spacing--hz">
+      <div className="spacing--sm">
         <p className="title text--bold subtitle--sm">{title}</p>
       </div>
       <div className="video__actions">
