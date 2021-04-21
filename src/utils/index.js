@@ -1,1 +1,6 @@
-export { getDuration, getPublishedDate, getVideoDetails } from "./videoUtils";
+export {
+  getDuration,
+  getPublishedDate,
+  getVideoDetails,
+  getPublishDistance,
+} from "./videoUtils";

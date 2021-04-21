@@ -19,4 +19,8 @@ const getVideoDetails = (videoId, videoList) => {
   return videoList.find(({ id }) => id === videoId);
 };
 
-export { getDuration, getPublishedDate, getVideoDetails };
+const getPublishDistance = (formatDistance, date) => {
+  return date ? formatDistance(new Date(date), new Date()) : "";
+};
+
+export { getDuration, getPublishedDate, getVideoDetails, getPublishDistance };

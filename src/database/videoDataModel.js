@@ -63,6 +63,49 @@ export const playlists = [
   },
 ];
 
+export const likedVideos = [
+  {
+    id: "U_l75ABauHw",
+    publishedAt: "2021-02-10T19:59:34Z",
+    channelId: "UCZB32syI0FFtThd6xkPTRrg",
+    title: "10 Simple Cooking Hacks EVERYONE Should Know!",
+    description:
+      "In today’s video, I’m sharing 10 simple cooking hacks that everyone should know! These cooking hacks are fun, unique and will be sure to blow your mind next time you’re in the kitchen! A huge thank you to Natura Market for sponsoring and this video and supporting the HealthNut community. Click here to visit their website: http://bit.ly/2N2rHKA and stock up on some of their health food goodies! Happy shopping😊\n\nLINKS:\n10 Simple Cooking Hacks Everyone Should Know Blog Post: https://bit.ly/3a8bblt\nHealthy Hacks Playlist: http://bit.ly/3tJBUN9\n10 Life-Changing Baking Hacks That You NEED To Know: https://bit.ly/3aRl5Hx\n\nORDER NOW! The HealthNut Cookbook: http://bit.ly/33XUK5l​​\nJoin Our Email List: http://bit.ly/2FwMD6Q​​  \nShop BeautyNut Skincare: http://bit.ly/2NuCNGm​​\nBrowse HealthNut Shop: https://bit.ly/3nyDNIk​​ \n______________________\n\nHey HealthNuts, welcome to my corner of the internet! My name is Nikole and I’m the face behind HealthNut Nutrition. Here on my YouTube channel, I talk about all things food, self-care, wellness, lifestyle, motherhood and our little family of four! I post a NEW video every Wednesday and Friday at 3 pm EST, such as What I Eat In a Day, Healthy Recipes, Lifestyle Vlogs, Healthy Grocery Hauls, Routines and MORE! Welcome to the HealthNut fam and I hope you enjoy watching!\n\nMost Popular Videos: \nWhat I Eat in a Day at Work • http://bit.ly/2qmkg5c​​\n7 Life-Changing Healthy Habits to Start TODAY! • https://bit.ly/3nmnCxk​​ \nWhat I Eat In A Day For Anxiety | Healthy & Balanced Meals • https://bit.ly/38jZh7j​​\nFINDING OUT I’M PREGNANT! Pregnancy Test + Emotional Reaction • https://bit.ly/38gxLrb​​ \nHealthy Costco Hauls | Stocking Up On Essentials! • https://bit.ly/38kmc29​​ \n\nOther Places You Can Find Me:\nInstagram • http://Instagram.com/healthnutnutrition​​\nFacebook • https://www.facebook.com/healthnutnut​​... \nBlog • http://www.healthnutnutrition.ca​​  \nShop • https://healthnutshop.com/​​ \nPinterest • https://www.pinterest.ca/healthnutnut​​... \n______________________\n\n*This video is sponsored. All opinions expressed are my own. Occasionally, I receive products from brands for consideration but will disclose when videos are sponsored and when I am getting paid to talk about the brand/products mentioned. Thank you for your support! \n\nHugs + Smoothies,\nNikole xo",
+    thumbnailUrl: "https://i.ytimg.com/vi/U_l75ABauHw/maxresdefault.jpg",
+    channelTitle: "HealthNut Nutrition",
+    tags: [
+      "kitchen hacks",
+      "food hacks",
+      "healthy food hacks",
+      "healthy eating hacks",
+      "healthy kitchen",
+      "healthy food tips",
+      "healthy eating tips",
+      "simple living",
+      "cooking hacks",
+      "life changing cooking hacks",
+      "easy recipes",
+      "naturamarket",
+      "naturamarket haul",
+      "healthy food haul",
+      "simple cooking",
+      "simple cooking hacks",
+      "healthnut",
+      "healthnut nutrition",
+      "healthnut eats",
+      "healthnut hacks",
+    ],
+    duration: "PT11M6S",
+    dimension: "2d",
+    definition: "hd",
+    viewCount: "40392",
+    likeCount: "1686",
+    dislikeCount: "31",
+    favoriteCount: "0",
+    commentCount: "110",
+  },
+];
+
 export const videoData = [
   {
     id: "yTt8WPRNLco",

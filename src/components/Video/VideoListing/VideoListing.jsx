@@ -1,9 +1,10 @@
 import React from "react";
 import "./VideoListing.css";
 import { Link } from "react-router-dom";
-import { getDuration, getPublishedDate } from "../../../utils";
+import { getDuration, getPublishDistance } from "../../../utils";
+import { formatDistanceStrict } from "date-fns";
 
-function VideoListing({ videoList }) {
+function VideoListing({ videoList, playlist }) {
   return (
     <div className="video-showcase">
       {videoList.map((video) => {
@@ -22,7 +23,16 @@ function VideoListing({ videoList }) {
               <div className="card__badge badge--position body--md">
                 {getDuration(duration)}
               </div>
-              <img className="img--responsive" src={thumbnailUrl} alt="" />
+              <div className="video__thumbnail">
+                <img className="img--responsive" src={thumbnailUrl} alt="" />
+                <div
+                  className={`${
+                    playlist ? "badge__icon badge__icon--align" : "hide"
+                  }`}
+                >
+                  <i className="fas fa-times fa-lg"></i>
+                </div>
+              </div>
               <div className="video__captions">
                 <img
                   className="img--rounded img--msm spacing--sm"
@@ -36,7 +46,10 @@ function VideoListing({ videoList }) {
                   <div className="card__content--align">
                     <p className="body--md video__date">
                       {channelTitle}
-                      <span>{getPublishedDate(publishedAt)}</span>
+                      <span>
+                        {getPublishDistance(formatDistanceStrict, publishedAt)}{" "}
+                        ago
+                      </span>
                     </p>
                   </div>
                 </div>

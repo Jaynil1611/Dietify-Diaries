@@ -8,6 +8,10 @@ body {
   color: var(--text-color);
 }
 
+.text--white {
+  color: var(--text-white);
+}
+
 .heading {
   display: flex;
   position: fixed;
@@ -81,4 +85,8 @@ ul {
 .side-menu.view {
   transform: translateX(0);
   transition: transform 0.4s ease-in-out;
+}
+
+.hide {
+  display: none;
 }

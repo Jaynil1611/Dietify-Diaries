@@ -13,6 +13,7 @@ const VideoContextProvider = ({ children }) => {
     playlists: [],
     watchLater: [],
     history: [],
+    likedVideos: [],
   });
 
   return (

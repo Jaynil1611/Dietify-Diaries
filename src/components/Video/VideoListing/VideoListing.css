@@ -55,3 +55,23 @@
   display: flex;
   justify-content: space-between;
 }
+
+.video__thumbnail {
+  position: relative;
+  top: 0;
+}
+
+.badge__icon--align {
+  right: 0.3rem;
+  left: initial;
+  top: 0.5rem;
+  background: var(--background-color);
+  border-radius: 50%;
+  width: 1.5rem;
+  height: 1.5rem;
+  opacity: 0.7;
+}
+
+.badge__icon--align:hover {
+  opacity: 1;
+}

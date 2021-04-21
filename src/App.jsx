@@ -1,7 +1,13 @@
 import "./styles.css";
 import { useAxios } from "./server";
 import { Routes, Route, Link } from "react-router-dom";
-import { Video, VideoDetail } from "./components";
+import {
+  PlayListDetail,
+  Video,
+  VideoDetail,
+  PlayLists,
+  Like,
+} from "./components";
 import { useState } from "react";
 
 function App() {
@@ -12,7 +18,9 @@ function App() {
   };
 
   useAxios("videos", "videoList");
+  useAxios("likes", "likedVideos");
   useAxios("playlists", "playlists");
+
   return (
     <div>
       <div className="heading">
@@ -44,10 +52,19 @@ function App() {
           <div className={`side-menu ${showMenu ? "view" : ""}`}>
             <ul className="list__group">
               <li className="list__item">
-                <Link to="/videos"> Home </Link>
+                <Link onClick={handleSideMenuClick} to="/videos">
+                  Home
+                </Link>
               </li>
               <li className="list__item">
-                <Link to="/liked">Liked</Link>
+                <Link onClick={handleSideMenuClick} to="/liked">
+                  Liked
+                </Link>
+              </li>
+              <li className="list__item">
+                <Link onClick={handleSideMenuClick} to="/playlists">
+                  Playlists
+                </Link>
               </li>
             </ul>
           </div>
@@ -55,6 +72,10 @@ function App() {
         <Routes>
           <Route path="/videos" element={<Video />} />
           <Route path="/videos/:videoId" element={<VideoDetail />} />
+          <Route path="/playlists" element={<PlayLists />} />
+          <Route path="/playlists" element={<PlayLists />} />
+          <Route path="/playlists/:playlistId" element={<PlayListDetail />} />
+          <Route path="/liked" element={<Like />} />
         </Routes>
       </div>
     </div>
