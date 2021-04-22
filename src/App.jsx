@@ -5,24 +5,23 @@ import {
   PlayListDetail,
   Video,
   VideoDetail,
-  PlayLists,
+  Playlists,
   Like,
 } from "./components";
 import { useState } from "react";
 
 function App() {
   const [showMenu, setShowMenu] = useState(false);
-
   const handleSideMenuClick = () => {
     setShowMenu(!showMenu);
   };
 
   useAxios("videos", "videoList");
-  useAxios("likes", "likedVideos");
   useAxios("playlists", "playlists");
+  useAxios("likes", "likedVideos");
 
   return (
-    <div>
+    <>
       <div className="heading">
         <div className="mobile-menu" onClick={handleSideMenuClick}>
           {showMenu ? (
@@ -37,7 +36,7 @@ function App() {
         <nav className="spacing--top">
           <ul className="nav nav--right">
             <li>
-              <Link className="text--gray badge__container" to="/profile">
+              <Link className="text--gray badge__container" to="/">
                 <img
                   src={`https://ui-avatars.com/api/?name=Jaynil+Gaglani&rounded=true&background=fd7014&color=fff&size=32`}
                   alt=""
@@ -51,35 +50,40 @@ function App() {
         <div className={`side-bar ${showMenu ? "show" : ""}`}>
           <div className={`side-menu ${showMenu ? "view" : ""}`}>
             <ul className="list__group">
-              <li className="list__item">
-                <Link onClick={handleSideMenuClick} to="/videos">
-                  Home
-                </Link>
-              </li>
-              <li className="list__item">
-                <Link onClick={handleSideMenuClick} to="/liked">
-                  Liked
-                </Link>
-              </li>
-              <li className="list__item">
-                <Link onClick={handleSideMenuClick} to="/playlists">
-                  Playlists
-                </Link>
-              </li>
+              {menuList.map(({ name, icon, path }) => (
+                <li key={name} className="list__item li--border">
+                  <Link onClick={handleSideMenuClick} to={`${path}`}>
+                    <span className="padding--right-sm ">
+                      <i className={`fas ${icon} icon--md`}></i>
+                    </span>
+                    <span className="subtitle--sm">{name}</span>
+                  </Link>
+                </li>
+              ))}
             </ul>
           </div>
         </div>
         <Routes>
+          <Route path="/" element={<Video />} />
           <Route path="/videos" element={<Video />} />
           <Route path="/videos/:videoId" element={<VideoDetail />} />
-          <Route path="/playlists" element={<PlayLists />} />
-          <Route path="/playlists" element={<PlayLists />} />
+          <Route path="/playlists" element={<Playlists />} />
           <Route path="/playlists/:playlistId" element={<PlayListDetail />} />
           <Route path="/liked" element={<Like />} />
+          <Route path="/saved" element={<VideoDetail />} />
+          <Route path="/history" element={<VideoDetail />} />
         </Routes>
       </div>
-    </div>
+    </>
   );
 }
+
+const menuList = [
+  { name: "Home", icon: "fa-home-alt", path: "/" },
+  { name: "Playlists", icon: "fa-folder", path: "/playlists" },
+  { name: "Liked videos", icon: "fa-thumbs-up", path: "/liked" },
+  { name: "Saved", icon: "fa-bookmark", path: "/saved" },
+  { name: "History", icon: "fa-history", path: "/history" },
+];
 
 export default App;

@@ -74,6 +74,7 @@
   -webkit-box-orient: vertical;
   text-overflow: ellipsis;
   overflow: hidden;
+  width: 95vw;
 }
 
 .video__desc--content a {
@@ -117,8 +118,8 @@
 }
 
 input[type="checkbox"] {
-  width: 1rem;
-  height: 1rem;
+  width: 1.1rem;
+  height: 1.1rem;
 }
 
 .playlist__add {

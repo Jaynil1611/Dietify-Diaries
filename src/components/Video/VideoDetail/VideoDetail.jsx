@@ -8,13 +8,18 @@ import {
   callMockServer,
   addOrRemoveVideoFromLiked,
   addOrRemoveVideoFromDisliked,
+  addPlaylist,
 } from "../../../server";
 import Linkify from "linkifyjs/react";
 import { useVideo } from "../../../contexts";
-import { actions } from "../../../reducers";
 
 function VideoDetail() {
+  const {
+    state: { likedVideos, dislikedVideos, playlists },
+    dispatch,
+  } = useVideo();
   const { videoId } = useParams();
+
   const [currentVideo, setCurrentVideo] = useState({});
   useEffect(() => {
     (async () => {
@@ -30,16 +35,24 @@ function VideoDetail() {
 
   return (
     <div>
-      <VideoComponents video={currentVideo} />
+      <VideoComponents
+        video={currentVideo}
+        likedVideos={likedVideos}
+        dislikedVideos={dislikedVideos}
+        dispatch={dispatch}
+        playlists={playlists}
+      />
     </div>
   );
 }
 
-const VideoComponents = ({ video }) => {
-  const {
-    state: { likedVideos, dislikedVideos, playlists },
-    dispatch,
-  } = useVideo();
+const VideoComponents = ({
+  video,
+  likedVideos,
+  dislikedVideos,
+  playlists,
+  dispatch,
+}) => {
   const { tags, title, channelTitle, description, publishedAt, id } = video;
   const [showPlaylist, setShowPlaylist] = useState(false);
 
@@ -48,10 +61,11 @@ const VideoComponents = ({ video }) => {
 
   const addNewPlaylistOption = (e) => {
     e.preventDefault();
-    dispatch({
-      type: actions.ADD_NEW_PLAYLIST,
-      payload: { name: e.target.form[0].value },
-    });
+    addPlaylist(dispatch, e.target.form[0].value);
+    // dispatch({
+    //   type: actions.ADD_NEW_PLAYLIST,
+    //   payload: { name: e.target.form[0].value },
+    // });
     e.target.form.reset();
   };
 
@@ -154,7 +168,6 @@ const VideoComponents = ({ video }) => {
               </form>
             </div>
           </div>
-          {/* dispatch({type:actions.ADD_NEW_PLAYLIST,payload:{name:}}) */}
           <div className="action__container">
             <OutlineButton>
               <i className="far fa-bookmark fa-lg"></i>

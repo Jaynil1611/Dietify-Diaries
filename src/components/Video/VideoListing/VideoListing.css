@@ -3,6 +3,7 @@
   grid-template-columns: 1fr;
   grid-gap: 0.5rem;
   margin: 1rem 0;
+  position: relative;
 }
 
 .card--video {
@@ -62,14 +63,13 @@
 }
 
 .badge__icon--align {
-  right: 0.3rem;
+  right: 0.8rem;
   left: initial;
-  top: 0.5rem;
+  top: 1rem;
   background: var(--background-color);
   border-radius: 50%;
   width: 1.5rem;
   height: 1.5rem;
-  opacity: 0.7;
 }
 
 .badge__icon--align:hover {

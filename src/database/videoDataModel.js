@@ -18,7 +18,7 @@ export const playlists = [
     name: "Favourites",
     videoList: [
       {
-        id: uuidv4(),
+        id: "yTt8WPRNLco",
         publishedAt: "2021-03-03T20:01:04Z",
         channelId: "UCZB32syI0FFtThd6xkPTRrg",
         title:

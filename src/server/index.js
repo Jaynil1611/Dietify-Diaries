@@ -5,4 +5,6 @@ export {
   addOrRemoveVideoFromLiked,
   addOrRemoveVideoFromDisliked,
   addOrRemoveVideoFromPlaylist,
+  addPlaylist,
+  removePlaylist,
 } from "./ServerUpdate";

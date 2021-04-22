@@ -1,12 +1,15 @@
 export {
   getDuration,
   getPublishedDate,
-  getVideoDetails,
+  getListDetails,
   getPublishDistance,
   checkVideoExists,
   addVideo,
   removeVideo,
-  addToPlaylist,
-  removeFromPlaylist,
+  addVideoToPlaylist,
+  removeVideoFromPlaylist,
   addNewPlaylist,
+  getSearchedData,
+  getFilteredList,
+  updatePlaylist,
 } from "./videoUtils";

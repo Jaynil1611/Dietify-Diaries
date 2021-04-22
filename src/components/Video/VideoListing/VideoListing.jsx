@@ -3,8 +3,12 @@ import "./VideoListing.css";
 import { Link } from "react-router-dom";
 import { getDuration, getPublishDistance } from "../../../utils";
 import { formatDistanceStrict } from "date-fns";
+import { addOrRemoveVideoFromPlaylist } from "../../../server";
+import { useVideo } from "../../../contexts";
 
-function VideoListing({ videoList, playlist }) {
+function VideoListing({ videoList, playlist, type }) {
+  const { dispatch } = useVideo();
+
   return (
     <div className="video-showcase">
       {videoList.map((video) => {
@@ -18,44 +22,52 @@ function VideoListing({ videoList, playlist }) {
         } = video;
         getDuration(duration);
         return (
-          <Link key={id} to={`${id}`}>
-            <div className="card--video">
-              <div className="card__badge badge--position body--md">
-                {getDuration(duration)}
-              </div>
-              <div className="video__thumbnail">
-                <img className="img--responsive" src={thumbnailUrl} alt="" />
-                <div
-                  className={`${
-                    playlist ? "badge__icon badge__icon--align" : "hide"
-                  }`}
-                >
-                  <i className="fas fa-times fa-lg"></i>
+          <div key={id}>
+            <Link to={`/videos/${id}`}>
+              <div className="card--video">
+                <div className="card__badge badge--position body--md">
+                  {getDuration(duration)}
                 </div>
-              </div>
-              <div className="video__captions">
-                <img
-                  className="img--rounded img--msm spacing--sm"
-                  src={`https://yt3.ggpht.com/ytc/AAUvwnjljnAGd_7gxeF5gJMR12-ZKEbhOJkXpggQp8_I7A=s100-c-k-c0x00ffffff-no-rj`}
-                  alt=""
-                />
-                <div className="spacing--sm">
-                  <p className="video__title subtitle--sm text--bold">
-                    {title}
-                  </p>
-                  <div className="card__content--align">
-                    <p className="body--md video__date">
-                      {channelTitle}
-                      <span>
-                        {getPublishDistance(formatDistanceStrict, publishedAt)}{" "}
-                        ago
-                      </span>
+                <div className="video__thumbnail">
+                  <img className="img--responsive" src={thumbnailUrl} alt="" />
+                </div>
+                <div className="video__captions">
+                  <img
+                    className="img--rounded img--msm spacing--sm"
+                    src={`https://yt3.ggpht.com/ytc/AAUvwnjljnAGd_7gxeF5gJMR12-ZKEbhOJkXpggQp8_I7A=s100-c-k-c0x00ffffff-no-rj`}
+                    alt=""
+                  />
+                  <div className="spacing--sm">
+                    <p className="video__title subtitle--sm text--bold">
+                      {title}
                     </p>
+                    <div className="card__content--align">
+                      <p className="body--md video__date">
+                        {channelTitle}
+                        <span>
+                          {getPublishDistance(
+                            formatDistanceStrict,
+                            publishedAt
+                          )}{" "}
+                          ago
+                        </span>
+                      </p>
+                    </div>
                   </div>
                 </div>
               </div>
+            </Link>
+            <div
+              className={`${type ? "badge__icon badge__icon--align" : "hide"}`}
+            >
+              <i
+                onClick={() =>
+                  addOrRemoveVideoFromPlaylist(dispatch, playlist, video)
+                }
+                className="fas fa-times fa-lg"
+              ></i>
             </div>
-          </Link>
+          </div>
         );
       })}
     </div>

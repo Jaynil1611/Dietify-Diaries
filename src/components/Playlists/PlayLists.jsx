@@ -1,51 +1,73 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import { useVideo } from "../../contexts";
+import { getFilteredList } from "../../utils";
 import "./PlayLists.css";
 
-function PlayLists() {
+function Playlists() {
   const {
     state: { playlists, likedVideos },
   } = useVideo();
-
+  const updatedPlaylists = getFilteredList(playlists);
   return (
     <>
-      <div className="subtitle--md text--bold spacing"> Your Playlists </div>
-      <div className="playlist__container">
-        {playlists.map((playlist) => {
-          const { name, id, videoList } = playlist;
-          return (
-            <Link key={id} to={`${id}`}>
-              <PlayListView name={name} videoList={videoList} />
+      {updatedPlaylists.length === 0 && likedVideos.length === 0 ? (
+        <div className="subtitle--md text--bold spacing">
+          Loading Playlists...
+        </div>
+      ) : (
+        <>
+          <div className="subtitle--md text--bold spacing">Your Playlists</div>
+          <div className="playlist__container">
+            {updatedPlaylists.map((playlist) => {
+              const { name, id, videoList } = playlist;
+              return (
+                <Link key={id} to={`${id}`}>
+                  <PlayListView
+                    name={name}
+                    videoList={getFilteredList(videoList)}
+                  />
+                </Link>
+              );
+            })}
+            <Link to="/liked">
+              <PlayListView name={"Liked videos"} videoList={likedVideos} />
             </Link>
-          );
-        })}
-        <Link to="/liked">
-          <PlayListView name={"Liked videos"} videoList={likedVideos} />
-        </Link>
-      </div>
+          </div>
+        </>
+      )}
     </>
   );
 }
-    
+
 const PlayListView = ({ name, videoList }) => (
-  <div className="playlist--details">
-    <div className="playlist__thumbnail">
-      <img className="img--responsive" src={videoList[0].thumbnailUrl} alt="" />
-      <div className="playlist--overlay">
-        <div>{videoList.length}</div>
-        <img
-          className="img--xs"
-          src="https://img.icons8.com/fluent-systems-filled/48/ffffff/video-playlist.png"
-          alt=""
-        />
+  <>
+    {videoList.length > 0 ? (
+      <div className="playlist--details">
+        <div className="playlist__thumbnail">
+          <img
+            className="img--responsive"
+            src={videoList[0].thumbnailUrl}
+            alt=""
+          />
+          <div className="playlist--overlay">
+            <div>{videoList.length}</div>
+            <img
+              className="img--xs"
+              src="https://img.icons8.com/fluent-systems-filled/48/ffffff/video-playlist.png"
+              alt=""
+            />
+          </div>
+        </div>
+        <div className="playlist__name">
+          <p>{name}</p>
+          <p className="text--gray body--md">{videoList.length} videos</p>
+        </div>
       </div>
-    </div>
-    <div className="playlist__name">
-      <p>{name}</p>
-      <p className="text--gray body--md">{videoList.length} videos</p>
-    </div>
-  </div>
+    ) : (
+      <></>
+    )}
+  </>
 );
 
-export default PlayLists;
+export default Playlists;

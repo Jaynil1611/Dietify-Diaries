@@ -1,6 +1,7 @@
 import { callMockServer } from ".";
 import { actions } from "../reducers";
 import { checkVideoExists } from "../utils";
+import faker from "faker";
 
 // -------------------- Liked Server Updates ---------------------------------------------
 const getRequestObject = (itemExists, video) => {
@@ -88,12 +89,46 @@ const addOrRemoveVideoFromPlaylist = async (dispatch, playlist, video) => {
     itemExists
       ? dispatch({
           type: actions.REMOVE_FROM_PLAYLIST,
-          payload: { playlistId: playlistResponse.id, id: video.id },
+          payload: { playlist: playlistResponse },
         })
       : dispatch({
           type: actions.ADD_TO_PLAYLIST,
-          payload: { playlistId: playlistResponse.id, video },
+          payload: { playlist: playlistResponse },
         });
+  }
+};
+
+const addPlaylist = async (dispatch, name) => {
+  const { response, error } = await callMockServer({
+    type: "post",
+    url: "/api/playlists",
+    data: {
+      playlist: {
+        id: faker.datatype.uuid(),
+        name,
+        videoList: [],
+      },
+    },
+  });
+  if (!error) {
+    dispatch({
+      type: actions.ADD_NEW_PLAYLIST,
+      payload: response.data.playlist,
+    });
+  }
+};
+
+const removePlaylist = async (dispatch, playlist) => {
+  const { response, error } = await callMockServer({
+    type: "put",
+    url: `/api/playlists/${playlist.id}`,
+    data: { playlist: { ...playlist, status: "deleted" } },
+  });
+  if (!error) {
+    dispatch({
+      type: actions.REMOVE_PLAYLIST,
+      payload: response.data.playlist,
+    });
   }
 };
 
@@ -101,4 +136,6 @@ export {
   addOrRemoveVideoFromLiked,
   addOrRemoveVideoFromDisliked,
   addOrRemoveVideoFromPlaylist,
+  addPlaylist,
+  removePlaylist,
 };
