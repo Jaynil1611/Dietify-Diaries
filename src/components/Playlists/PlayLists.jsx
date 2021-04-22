@@ -6,7 +6,7 @@ import "./PlayLists.css";
 
 function Playlists() {
   const {
-    state: { playlists, likedVideos },
+    state: { playlists, likedVideos, savedVideos },
   } = useVideo();
   const updatedPlaylists = getFilteredList(playlists);
   return (
@@ -32,6 +32,9 @@ function Playlists() {
             })}
             <Link to="/liked">
               <PlayListView name={"Liked videos"} videoList={likedVideos} />
+            </Link>
+            <Link to="/saved">
+              <PlayListView name={"Saved videos"} videoList={savedVideos} />
             </Link>
           </div>
         </>

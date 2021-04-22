@@ -6,6 +6,7 @@ import {
   removeVideo,
   updatePlaylist,
 } from "../utils";
+import { addVideoToTop, updateVideoPosition } from "../utils/videoUtils";
 import { actions } from "./Actions";
 
 const videoReducer = (prevState, { type, payload }) => {
@@ -65,6 +66,25 @@ const videoReducer = (prevState, { type, payload }) => {
         ...prevState,
         search: payload,
       };
+    case actions.ADD_TO_SAVED_LIST:
+      return {
+        ...prevState,
+        savedVideos: addVideo(prevState.savedVideos, payload),
+      };
+    case actions.REMOVE_FROM_SAVED_LIST:
+      return {
+        ...prevState,
+        savedVideos: removeVideo(prevState.savedVideos, payload.id),
+      };
+    case actions.UPDATE_HISTORY:
+      return {
+        ...prevState,
+        history: payload.shuffle
+          ? updateVideoPosition(prevState.history, payload.id)
+          : addVideoToTop(prevState.history, payload),
+      };
+    case actions.UPDATE_TAG:
+      return { ...prevState, tag: payload };
     default:
       return prevState;
   }

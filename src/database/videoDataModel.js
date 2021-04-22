@@ -108,6 +108,57 @@ export const likedVideos = [
   },
 ];
 
+export const savedVideos = [
+  {
+    id: "gNPPpmNEHDY",
+    publishedAt: "2021-02-03T19:59:33Z",
+    channelId: "UCZB32syI0FFtThd6xkPTRrg",
+    title: "7 Daily Healthy Habits as a New Mom + 5 Minute Oral Care Routine",
+    description:
+      "ORDER NOW! The HealthNut Cookbook: http://bit.ly/33XUK5l​\nJoin Our Email List: http://bit.ly/2FwMD6Q​  \nShop BeautyNut Skincare: http://bit.ly/2NuCNGm​\nBrowse HealthNut Shop: https://bit.ly/3nyDNIk​ \n\nToday I’m sharing 7 habits for a healthy routine as a new mama + my 5-minute oral hygiene routine! A special thank you to Arm & Hammer for sponsoring and collaborating with me on the video and for keeping my teeth clean with only the essential ingredients. \n\nPurchase Arm & Hammer Essentials\nA&H Essentials Charcoal: http://bit.ly/3oJkFHQ \nA&H Essentials Whiten + Strengthen: http://bit.ly/2MP3gAg \nA&H Essentials Healthy Teeth & Gums: https://amzn.to/36ADCqi \n \nLearn More: \nA&H Essentials Charcoal: https://bit.ly/3tkXWWe\nA&H Essentials Whiten + Strengthen: https://bit.ly/3tyFjyi\nA&H Essentials Healthy Teeth & Gums: https://bit.ly/3tntyKJ\n\nLINKS:\n7 Healthy Habits Blog Post: https://bit.ly/2O5LvgT\nMatt’s YouTube Channel: https://bit.ly/3qDDrBT​\n______________________\n\nHey HealthNuts, welcome to my corner of the internet! My name is Nikole and I’m the face behind HealthNut Nutrition. Here on my YouTube channel, I talk about all things food, self-care, wellness, lifestyle, motherhood and our little family of four! I post a NEW video every Wednesday and Friday at 3 pm EST, such as What I Eat In a Day, Healthy Recipes, Lifestyle Vlogs, Healthy Grocery Hauls, Routines and MORE! Welcome to the HealthNut fam and I hope you enjoy watching!\n\nMost Popular Videos: \nWhat I Eat in a Day at Work • http://bit.ly/2qmkg5c​\n7 Life-Changing Healthy Habits to Start TODAY! • https://bit.ly/3nmnCxk​ \nWhat I Eat In A Day For Anxiety | Healthy & Balanced Meals • https://bit.ly/38jZh7j​\nFINDING OUT I’M PREGNANT! Pregnancy Test + Emotional Reaction • https://bit.ly/38gxLrb​ \nHealthy Costco Hauls | Stocking Up On Essentials! • https://bit.ly/38kmc29​ \n\nOther Places You Can Find Me:\nInstagram • http://Instagram.com/healthnutnutrition​\nFacebook • https://www.facebook.com/healthnutnut​... \nBlog • http://www.healthnutnutrition.ca​  \nShop • https://healthnutshop.com/​ \nPinterest • https://www.pinterest.ca/healthnutnut​... \n______________________\n\nCamera & Equipment:\nVlogs •\nMain Camera: https://amzn.to/38YF1am​ \nMicrophone: https://amzn.to/3hSlJrm​ \nMini Tripod:  https://amzn.to/3b9W6kh​ \nMain Videos •\nMain Camera: https://amzn.to/3hIKQwH​ \nLens:  https://amzn.to/3pS7FAN​ \nZoom Lens:  https://amzn.to/3b712Xf​ \nGimbal Stabilizer: https://amzn.to/3nbvG44​ \nMicrophone System: https://amzn.to/2JPgdco​  \nTripod: https://amzn.to/3hWz9Tj​ \nC-Stand: https://amzn.to/3q3ZEJl​ \nLighting https://amzn.to/2MEFZkN​ \nDome Diffuser: https://amzn.to/3hSnDIw​  \nClamps: https://amzn.to/3hLwJ9L​ \nSandbags: https://amzn.to/3pJu1o6​  \nBackdrops •\nPecan: https://bit.ly/357MBhR​\nCoral: https://bit.ly/3943GKD​ \nBlue Mist: https://bit.ly/2L7yKBb​ \nLemonade: https://bit.ly/3bbnbUo​\n\n*This video is sponsored. All opinions expressed are my own. Occasionally, I receive products from brands for consideration but will disclose when videos are sponsored and when I am getting paid to talk about the brand/products mentioned. Thank you for your support! \n\nHugs + Smoothies,\nNikole xo",
+    thumbnailUrl: "https://i.ytimg.com/vi/gNPPpmNEHDY/maxresdefault.jpg",
+    channelTitle: "HealthNut Nutrition",
+    tags: [
+      "healthy habits",
+      "change your life",
+      "how to be healthy",
+      "7 healthy habits",
+      "new year's resolutions",
+      "healthy",
+      "green smoothie",
+      "healthy smoothie recipes",
+      "healthy hacks",
+      "daily habits",
+      "motivation",
+      "inspiration",
+      "wellness",
+      "lifestyle",
+      "meal prep",
+      "meal prep hacks",
+      "healthnut",
+      "healthnut nutrition",
+      "recipes",
+      "easy recipes",
+      "new mom",
+      "motherhood",
+      "oral care",
+      "oral care routine",
+      "clean oral care routine",
+      "non toxic oral care",
+      "healthy lifestyle",
+      "healthy living",
+    ],
+    duration: "PT16M12S",
+    dimension: "2d",
+    definition: "hd",
+    viewCount: "355498",
+    likeCount: "1580",
+    dislikeCount: "24",
+    favoriteCount: "0",
+    commentCount: "108",
+  },
+];
+
 export const videoData = [
   {
     id: "yTt8WPRNLco",

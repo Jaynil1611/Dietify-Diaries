@@ -4,24 +4,24 @@ import { checkVideoExists } from "../utils";
 import faker from "faker";
 
 // -------------------- Liked Server Updates ---------------------------------------------
-const getRequestObject = (itemExists, video) => {
+const getRequestObject = (itemExists, video, resource) => {
   return itemExists
     ? {
         type: "put",
-        url: `/api/likes/${video.id}`,
-        data: { like: { ...video, status: "deleted" } },
+        url: `/api/${resource}s/${video.id}`,
+        data: { [resource]: { ...video, status: "deleted" } },
       }
     : {
         type: "post",
-        url: "/api/likes",
-        data: { like: video },
+        url: `/api/${resource}s`,
+        data: { [resource]: video },
       };
 };
 
 const addOrRemoveVideoFromLiked = async (dispatch, list, video) => {
   const itemExists = checkVideoExists(list, video.id);
   const { response, error } = await callMockServer(
-    getRequestObject(itemExists, video)
+    getRequestObject(itemExists, video, "like")
   );
   if (!error) {
     const { like: videoResponse } = response.data;
@@ -132,10 +132,52 @@ const removePlaylist = async (dispatch, playlist) => {
   }
 };
 
+// -------------------- Save Server Updates ---------------------------------------------
+const addOrRemoveVideoFromSaved = async (dispatch, list, video) => {
+  const itemExists = checkVideoExists(list, video.id);
+  const { response, error } = await callMockServer(
+    getRequestObject(itemExists, video, "save")
+  );
+  if (!error) {
+    const { save: videoResponse } = response.data;
+    itemExists
+      ? dispatch({
+          type: actions.REMOVE_FROM_SAVED_LIST,
+          payload: { id: video.id },
+        })
+      : dispatch({ type: actions.ADD_TO_SAVED_LIST, payload: videoResponse });
+  }
+};
+
+// -------------------- History Server Updates ---------------------------------------------
+const addVideoToHistory = async (dispatch, list, video) => {
+  const itemExists = checkVideoExists(list, video.id);
+  if (itemExists) {
+    return dispatch({
+      type: actions.UPDATE_HISTORY,
+      payload: { id: video.id, shuffle: true },
+    });
+  }
+  const { response, error } = await callMockServer({
+    type: "post",
+    url: "/api/histories",
+    data: { history: video },
+  });
+  if (!error) {
+    const { history: videoResponse } = response.data;
+    dispatch({
+      type: actions.UPDATE_HISTORY,
+      payload: videoResponse,
+    });
+  }
+};
+
 export {
   addOrRemoveVideoFromLiked,
   addOrRemoveVideoFromDisliked,
   addOrRemoveVideoFromPlaylist,
   addPlaylist,
   removePlaylist,
+  addOrRemoveVideoFromSaved,
+  addVideoToHistory,
 };

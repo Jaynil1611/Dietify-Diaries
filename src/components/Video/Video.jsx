@@ -4,21 +4,22 @@ import { tags } from "../../database";
 import { useVideo } from "../../contexts";
 import { VideoListing } from "../index";
 import { actions } from "../../reducers";
-import { getSearchedData } from "../../utils";
+import { getSearchedData, getUpdatedTagData } from "../../utils";
 
 function Video() {
   const {
-    state: { videoList, search },
+    state: { videoList, search, tag },
     dispatch,
   } = useVideo();
 
   const searchedData = getSearchedData(videoList, search);
+  const taggedData = getUpdatedTagData(searchedData, tag);
   return (
     <div>
       <SearchBar dispatch={dispatch} />
-      <Tags />
+      <Tags dispatch={dispatch} />
       <div className="video-container">
-        <VideoListing videoList={searchedData} />
+        <VideoListing videoList={taggedData} />
       </div>
     </div>
   );
@@ -44,11 +45,15 @@ export const SearchBar = ({ dispatch }) => {
   );
 };
 
-export const Tags = () => (
+export const Tags = ({ dispatch }) => (
   <ul className="list--inline display__tags">
     {tags.map((tag) => (
       <li key={tag} className="list__item list__item--border">
-        <SecondaryButton>{tag}</SecondaryButton>
+        <SecondaryButton
+          onClick={() => dispatch({ type: actions.UPDATE_TAG, payload: tag })}
+        >
+          {tag}
+        </SecondaryButton>
       </li>
     ))}
   </ul>

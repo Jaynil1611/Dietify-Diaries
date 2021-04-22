@@ -7,4 +7,6 @@ export {
   addOrRemoveVideoFromPlaylist,
   addPlaylist,
   removePlaylist,
+  addOrRemoveVideoFromSaved,
+  addVideoToHistory,
 } from "./ServerUpdate";

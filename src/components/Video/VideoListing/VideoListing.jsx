@@ -3,11 +3,19 @@ import "./VideoListing.css";
 import { Link } from "react-router-dom";
 import { getDuration, getPublishDistance } from "../../../utils";
 import { formatDistanceStrict } from "date-fns";
-import { addOrRemoveVideoFromPlaylist } from "../../../server";
+import {
+  addOrRemoveVideoFromLiked,
+  addOrRemoveVideoFromPlaylist,
+  addOrRemoveVideoFromSaved,
+  addVideoToHistory,
+} from "../../../server";
 import { useVideo } from "../../../contexts";
 
 function VideoListing({ videoList, playlist, type }) {
-  const { dispatch } = useVideo();
+  const {
+    state: { history },
+    dispatch,
+  } = useVideo();
 
   return (
     <div className="video-showcase">
@@ -23,7 +31,10 @@ function VideoListing({ videoList, playlist, type }) {
         getDuration(duration);
         return (
           <div key={id}>
-            <Link to={`/videos/${id}`}>
+            <Link
+              to={`/videos/${id}`}
+              onClick={() => addVideoToHistory(dispatch, history, video)}
+            >
               <div className="card--video">
                 <div className="card__badge badge--position body--md">
                   {getDuration(duration)}
@@ -57,12 +68,10 @@ function VideoListing({ videoList, playlist, type }) {
                 </div>
               </div>
             </Link>
-            <div
-              className={`${type ? "badge__icon badge__icon--align" : "hide"}`}
-            >
+            <div className={getTypeClass(type)}>
               <i
                 onClick={() =>
-                  addOrRemoveVideoFromPlaylist(dispatch, playlist, video)
+                  clickHandler({ dispatch, playlist, video, videoList, type })
                 }
                 className="fas fa-times fa-lg"
               ></i>
@@ -73,5 +82,24 @@ function VideoListing({ videoList, playlist, type }) {
     </div>
   );
 }
+
+const getTypeClass = (type) => {
+  return `${
+    type && type !== "history" ? "badge__icon badge__icon--align" : "hide"
+  }`;
+};
+
+const clickHandler = ({ dispatch, playlist, video, videoList, type }) => {
+  switch (type) {
+    case "playlist":
+      return addOrRemoveVideoFromPlaylist(dispatch, playlist, video);
+    case "liked":
+      return addOrRemoveVideoFromLiked(dispatch, videoList, video);
+    case "saved":
+      return addOrRemoveVideoFromSaved(dispatch, videoList, video);
+    default:
+      return;
+  }
+};
 
 export default VideoListing;

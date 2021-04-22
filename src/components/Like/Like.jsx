@@ -1,7 +1,6 @@
 import React from "react";
 import { useVideo } from "../../contexts";
-import { VideoListing } from "../index";
-import { PlayListHeading } from "../Playlists/PlaylistDetail/PlayListDetail";
+import { VideoListing, PlayListHeading } from "../index";
 
 function Like() {
   const {

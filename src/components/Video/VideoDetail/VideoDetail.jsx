@@ -9,17 +9,14 @@ import {
   addOrRemoveVideoFromLiked,
   addOrRemoveVideoFromDisliked,
   addPlaylist,
+  addOrRemoveVideoFromSaved,
 } from "../../../server";
 import Linkify from "linkifyjs/react";
 import { useVideo } from "../../../contexts";
 
 function VideoDetail() {
-  const {
-    state: { likedVideos, dislikedVideos, playlists },
-    dispatch,
-  } = useVideo();
   const { videoId } = useParams();
-
+  const { state, dispatch } = useVideo();
   const [currentVideo, setCurrentVideo] = useState({});
   useEffect(() => {
     (async () => {
@@ -35,24 +32,13 @@ function VideoDetail() {
 
   return (
     <div>
-      <VideoComponents
-        video={currentVideo}
-        likedVideos={likedVideos}
-        dislikedVideos={dislikedVideos}
-        dispatch={dispatch}
-        playlists={playlists}
-      />
+      <VideoComponents video={currentVideo} state={state} dispatch={dispatch} />
     </div>
   );
 }
 
-const VideoComponents = ({
-  video,
-  likedVideos,
-  dislikedVideos,
-  playlists,
-  dispatch,
-}) => {
+const VideoComponents = ({ video, state, dispatch }) => {
+  const { likedVideos, dislikedVideos, playlists, savedVideos } = state;
   const { tags, title, channelTitle, description, publishedAt, id } = video;
   const [showPlaylist, setShowPlaylist] = useState(false);
 
@@ -62,10 +48,6 @@ const VideoComponents = ({
   const addNewPlaylistOption = (e) => {
     e.preventDefault();
     addPlaylist(dispatch, e.target.form[0].value);
-    // dispatch({
-    //   type: actions.ADD_NEW_PLAYLIST,
-    //   payload: { name: e.target.form[0].value },
-    // });
     e.target.form.reset();
   };
 
@@ -169,8 +151,16 @@ const VideoComponents = ({
             </div>
           </div>
           <div className="action__container">
-            <OutlineButton>
-              <i className="far fa-bookmark fa-lg"></i>
+            <OutlineButton
+              onClick={() =>
+                addOrRemoveVideoFromSaved(dispatch, savedVideos, video)
+              }
+            >
+              <i
+                className={`fa${
+                  checkVideoExists(savedVideos, id) ? "s" : "r"
+                } fa-bookmark fa-lg`}
+              ></i>
             </OutlineButton>
             <p className="spacing--vh">Save</p>
           </div>

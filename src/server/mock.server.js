@@ -1,5 +1,5 @@
 import { createServer, Model, RestSerializer } from "miragejs";
-import { videoData, playlists, likedVideos } from "../database";
+import { videoData, playlists, likedVideos, savedVideos } from "../database";
 
 export default function setupMockServer() {
   createServer({
@@ -11,6 +11,8 @@ export default function setupMockServer() {
       video: Model,
       playlist: Model,
       like: Model,
+      save: Model,
+      history: Model,
     },
 
     routes() {
@@ -19,6 +21,8 @@ export default function setupMockServer() {
       this.resource("videos");
       this.resource("playlists");
       this.resource("likes");
+      this.resource("saves");
+      this.resource("histories");
     },
 
     seeds(server) {
@@ -27,6 +31,12 @@ export default function setupMockServer() {
         ...playlists[0],
       });
       server.create("like", {
+        ...likedVideos[0],
+      });
+      server.create("save", {
+        ...savedVideos[0],
+      });
+      server.create("history", {
         ...likedVideos[0],
       });
     },

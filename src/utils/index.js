@@ -12,4 +12,5 @@ export {
   getSearchedData,
   getFilteredList,
   updatePlaylist,
+  getUpdatedTagData,
 } from "./videoUtils";

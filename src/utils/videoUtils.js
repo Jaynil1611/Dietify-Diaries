@@ -1,3 +1,5 @@
+import { tags } from "../database";
+
 const getDuration = (duration) => {
   const time_extractor = /([0-9]*H)?([0-9]*M)?([0-9]*S)?$/;
   const extracted = time_extractor.exec(duration);
@@ -79,6 +81,20 @@ const getFilteredList = (list) => {
   return list.filter(({ status }) => status !== "deleted");
 };
 
+const addVideoToTop = (list, video) => {
+  return [video, ...list];
+};
+
+const updateVideoPosition = (list, videoId) => {
+  return list.reduce((result, video) => {
+    return video.id === videoId ? [video, ...result] : result.concat(video);
+  }, []);
+};
+
+const getUpdatedTagData = (list, tag) => {
+  return tag ? list.filter(({ tags }) => tags.includes(tag)) : list;
+};
+
 export {
   getDuration,
   getPublishedDate,
@@ -93,4 +109,7 @@ export {
   getSearchedData,
   getFilteredList,
   updatePlaylist,
+  addVideoToTop,
+  updateVideoPosition,
+  getUpdatedTagData,
 };

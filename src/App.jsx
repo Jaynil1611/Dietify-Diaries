@@ -7,6 +7,8 @@ import {
   VideoDetail,
   Playlists,
   Like,
+  Saved,
+  History,
 } from "./components";
 import { useState } from "react";
 
@@ -19,6 +21,8 @@ function App() {
   useAxios("videos", "videoList");
   useAxios("playlists", "playlists");
   useAxios("likes", "likedVideos");
+  useAxios("saves", "savedVideos");
+  useAxios("histories", "history");
 
   return (
     <>
@@ -70,8 +74,8 @@ function App() {
           <Route path="/playlists" element={<Playlists />} />
           <Route path="/playlists/:playlistId" element={<PlayListDetail />} />
           <Route path="/liked" element={<Like />} />
-          <Route path="/saved" element={<VideoDetail />} />
-          <Route path="/history" element={<VideoDetail />} />
+          <Route path="/saved" element={<Saved />} />
+          <Route path="/history" element={<History />} />
         </Routes>
       </div>
     </>
