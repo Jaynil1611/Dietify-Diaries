@@ -45,9 +45,3 @@
 .button--border {
   border-radius: 3rem;
 }
-
-.button--outline:hover,
-.button--outline:focus {
-  background-color: var(--accent-color);
-  color: var(--background-color);
-}

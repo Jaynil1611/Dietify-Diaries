@@ -1,3 +1,5 @@
+import { v4 as uuidv4 } from "uuid";
+
 export const tags = [
   "healthy recipe ideas",
   "healthy recipes",
@@ -12,11 +14,11 @@ export const tags = [
 
 export const playlists = [
   {
-    id: "yTt8WPRNLso",
+    id: "PLEpwurODsrVMtU5aDhkzOwcVFATR6DBsC",
     name: "Favourites",
     videoList: [
       {
-        id: "yTt8WPRNLco",
+        id: uuidv4(),
         publishedAt: "2021-03-03T20:01:04Z",
         channelId: "UCZB32syI0FFtThd6xkPTRrg",
         title:

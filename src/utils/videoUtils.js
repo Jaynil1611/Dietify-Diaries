@@ -1,3 +1,5 @@
+import { v4 as uuidv4 } from "uuid";
+
 const getDuration = (duration) => {
   const time_extractor = /([0-9]*H)?([0-9]*M)?([0-9]*S)?$/;
   const extracted = time_extractor.exec(duration);
@@ -23,4 +25,52 @@ const getPublishDistance = (formatDistance, date) => {
   return date ? formatDistance(new Date(date), new Date()) : "";
 };
 
-export { getDuration, getPublishedDate, getVideoDetails, getPublishDistance };
+const checkVideoExists = (list, videoId) => {
+  return list.find(({ id, status }) => id === videoId && status !== "deleted");
+};
+
+const addVideo = (list, video) => {
+  return list.concat(video);
+};
+
+const removeVideo = (list, videoId) => {
+  return list.filter(({ id }) => id !== videoId);
+};
+
+const addNewPlaylist = (playlists, name) => {
+  return playlists.concat({ id: uuidv4(), name, videoList: [] });
+};
+
+const addToPlaylist = (playlists, playlistId, video) => {
+  return playlists.map((playlist) => {
+    if (playlist.id === playlistId) {
+      return { ...playlist, videoList: playlist.videoList.concat(video) };
+    }
+    return playlist;
+  });
+};
+
+const removeFromPlaylist = (playlists, playlistId, videoId) => {
+  return playlists.map((playlist) => {
+    if (playlist.id === playlistId) {
+      return {
+        ...playlist,
+        videoList: playlist.videoList.filter((video) => video.id !== videoId),
+      };
+    }
+    return playlist;
+  });
+};
+
+export {
+  getDuration,
+  getPublishedDate,
+  getVideoDetails,
+  getPublishDistance,
+  checkVideoExists,
+  removeVideo,
+  addVideo,
+  addToPlaylist,
+  addNewPlaylist,
+  removeFromPlaylist,
+};
