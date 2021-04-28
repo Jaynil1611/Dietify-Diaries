@@ -2,9 +2,9 @@ import React from "react";
 import { Link } from "react-router-dom";
 import { useVideo } from "../../contexts";
 import { getFilteredList } from "../../utils";
-import "./Playlists.css";
+import "./PlayLists.css";
 
-function Playlists() {
+function PlayLists() {
   const {
     state: { playlists, likedVideos, savedVideos },
   } = useVideo();
@@ -73,4 +73,4 @@ const PlayListView = ({ name, videoList }) => (
   </>
 );
 
-export default Playlists;
+export default PlayLists;
