@@ -2,7 +2,8 @@ import { callMockServer } from ".";
 import { actions } from "../reducers";
 import { checkVideoExists } from "../utils";
 import faker from "faker";
-import { handleToast } from "./Toast/Toast";
+import { handleToast } from "../components";
+
 // -------------------- Liked Server Updates ---------------------------------------------
 const getRequestObject = (itemExists, video, resource) => {
   return itemExists
