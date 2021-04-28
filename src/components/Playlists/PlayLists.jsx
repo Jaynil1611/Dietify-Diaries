@@ -2,7 +2,7 @@ import React from "react";
 import { Link } from "react-router-dom";
 import { useVideo } from "../../contexts";
 import { getFilteredList } from "../../utils";
-import "./PlayLists.css";
+import "./Playlists.css";
 
 function Playlists() {
   const {
