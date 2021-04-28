@@ -9,3 +9,5 @@ export { default as Playlists } from "./Playlists/Playlists";
 export { default as Like } from "./Like/Like";
 export { default as Saved } from "./Saved/Saved";
 export { default as History } from "./History/History";
+export { default as Toast } from "./Toast/Toast";
+export { handleToast } from "./Toast/Toast";

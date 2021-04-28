@@ -18,6 +18,8 @@ const VideoContextProvider = ({ children }) => {
     savedVideos: [],
     search: "",
     tag: "",
+    showToast: false,
+    toastMessage: "",
   });
 
   return (

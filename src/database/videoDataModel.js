@@ -1,14 +1,26 @@
-import { v4 as uuidv4 } from "uuid";
-
 export const tags = [
   "healthy recipe ideas",
   "healthy recipes",
   "healthy food",
+  "healthy food channel",
+  "what to buy at the grocery store",
+  "nutritional yeast",
+  "healthy grocery haul",
+  "what i eat in a week",
+  "health nut nutrition",
+  "underrated",
   "nutrition",
   "foods you must try",
   "clean eating",
   "healthy fats",
+  "pantry essentials",
+  "what's in my pantry",
+  "underrated healthy foods",
   "10 foods you must try",
+  "healthnut",
+  "healthnut nutrition",
+  "healtnut eats",
+  "easy recipes",
   "healthy",
 ];
 

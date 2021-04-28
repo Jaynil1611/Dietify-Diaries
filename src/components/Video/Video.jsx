@@ -17,7 +17,9 @@ function Video() {
   return (
     <div>
       <SearchBar dispatch={dispatch} />
-      <Tags dispatch={dispatch} />
+      <div className="scroll--hover">
+        <Tags dispatch={dispatch} />
+      </div>
       <div className="video-container">
         <VideoListing videoList={taggedData} />
       </div>
@@ -50,6 +52,7 @@ export const Tags = ({ dispatch }) => (
     {tags.map((tag) => (
       <li key={tag} className="list__item list__item--border">
         <SecondaryButton
+          className="tag--transform"
           onClick={() => dispatch({ type: actions.UPDATE_TAG, payload: tag })}
         >
           {tag}
@@ -59,9 +62,9 @@ export const Tags = ({ dispatch }) => (
   </ul>
 );
 
-export const SecondaryButton = ({ children, onClick }) => (
+export const SecondaryButton = ({ children, onClick, className }) => (
   <button
-    className="button button--outline button--sm subtitle--sm button--border"
+    className={`button button--outline button--sm subtitle--sm button--border ${className}`}
     onClick={onClick}
   >
     {children}

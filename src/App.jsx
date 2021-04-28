@@ -42,6 +42,7 @@ function App() {
             <li>
               <Link className="text--gray badge__container" to="/">
                 <img
+                  className="img--xs"
                   src={`https://ui-avatars.com/api/?name=Jaynil+Gaglani&rounded=true&background=fd7014&color=fff&size=32`}
                   alt=""
                 />
@@ -51,13 +52,15 @@ function App() {
         </nav>
       </div>
       <div className="main-content">
-        <div className={`side-bar ${showMenu ? "show" : ""}`}>
-          <div className={`side-menu ${showMenu ? "view" : ""}`}>
-            <ul className="list__group">
+        <div className={`side-bar ${showMenu ? "show" : "side-bar--desktop"}`}>
+          <div
+            className={`side-menu ${showMenu ? "view" : "side-menu--desktop"}`}
+          >
+            <ul className="list__group li--border sidebar--scroll">
               {menuList.map(({ name, icon, path }) => (
                 <li key={name} className="list__item li--border">
                   <Link onClick={handleSideMenuClick} to={`${path}`}>
-                    <span className="padding--right-sm ">
+                    <span className="padding--right-md">
                       <i className={`fas ${icon} icon--md`}></i>
                     </span>
                     <span className="subtitle--sm">{name}</span>
@@ -67,16 +70,18 @@ function App() {
             </ul>
           </div>
         </div>
-        <Routes>
-          <Route path="/" element={<Video />} />
-          <Route path="/videos" element={<Video />} />
-          <Route path="/videos/:videoId" element={<VideoDetail />} />
-          <Route path="/playlists" element={<Playlists />} />
-          <Route path="/playlists/:playlistId" element={<PlayListDetail />} />
-          <Route path="/liked" element={<Like />} />
-          <Route path="/saved" element={<Saved />} />
-          <Route path="/history" element={<History />} />
-        </Routes>
+        <div className="video__display">
+          <Routes>
+            <Route path="/" element={<Video />} />
+            <Route path="/videos" element={<Video />} />
+            <Route path="/videos/:videoId" element={<VideoDetail />} />
+            <Route path="/playlists" element={<Playlists />} />
+            <Route path="/playlists/:playlistId" element={<PlayListDetail />} />
+            <Route path="/liked" element={<Like />} />
+            <Route path="/saved" element={<Saved />} />
+            <Route path="/history" element={<History />} />
+          </Routes>
+        </div>
       </div>
     </>
   );

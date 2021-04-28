@@ -7,15 +7,11 @@ import {
   addOrRemoveVideoFromLiked,
   addOrRemoveVideoFromPlaylist,
   addOrRemoveVideoFromSaved,
-  addVideoToHistory,
 } from "../../../server";
 import { useVideo } from "../../../contexts";
 
 function VideoListing({ videoList, playlist, type }) {
-  const {
-    state: { history },
-    dispatch,
-  } = useVideo();
+  const { dispatch } = useVideo();
 
   return (
     <div className="video-showcase">
@@ -30,11 +26,8 @@ function VideoListing({ videoList, playlist, type }) {
         } = video;
         getDuration(duration);
         return (
-          <div key={id}>
-            <Link
-              to={`/videos/${id}`}
-              onClick={() => addVideoToHistory(dispatch, history, video)}
-            >
+          <div key={id} className="video__wrapper">
+            <Link to={`/videos/${id}`}>
               <div className="card--video">
                 <div className="card__badge badge--position body--md">
                   {getDuration(duration)}

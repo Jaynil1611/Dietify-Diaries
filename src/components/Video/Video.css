@@ -27,14 +27,9 @@
 }
 
 .display__tags {
-  overflow-x: auto;
   white-space: nowrap;
   padding: 1.5rem 0 0.5rem 0;
   border-bottom: 0px;
-}
-
-.display__tags::-webkit-scrollbar {
-  display: none;
 }
 
 .list__item--border {
@@ -44,4 +39,33 @@
 
 .button--border {
   border-radius: 3rem;
+}
+
+.scroll--hover {
+  overflow-x: auto;
+}
+
+.tag--transform {
+  text-transform: capitalize;
+}
+
+@media screen and (min-width: 648px) {
+  .input__search {
+    margin: 0.5rem 25%;
+  }
+
+  .scroll--hover::-webkit-scrollbar {
+    background: transparent;
+    height: 0.4rem;
+  }
+
+  .scroll--hover::-webkit-scrollbar-thumb {
+    border-radius: 10px;
+    background-clip: content-box;
+    background-color: transparent;
+  }
+
+  .scroll--hover:hover::-webkit-scrollbar-thumb {
+    background-color: var(--secondary-color);
+  }
 }

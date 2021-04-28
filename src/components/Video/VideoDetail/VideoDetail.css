@@ -74,7 +74,7 @@
   -webkit-box-orient: vertical;
   text-overflow: ellipsis;
   overflow: hidden;
-  width: 95vw;
+  width: 100%;
 }
 
 .video__desc--content a {
@@ -164,4 +164,23 @@ input[type="checkbox"] {
 
 .liked {
   color: var(--accent-color);
+}
+
+@media screen and (min-width: 648px) {
+  .video__container {
+    padding-top: 30%;
+  }
+
+  .video__player {
+    width: 60%;
+    height: 100%;
+  }
+
+  .video__desc--content {
+    white-space: break-spaces;
+    -webkit-line-clamp: 9;
+  }
+  .video__detail {
+    max-width: 60%;
+  }
 }

@@ -10,6 +10,7 @@ import {
   addOrRemoveVideoFromDisliked,
   addPlaylist,
   addOrRemoveVideoFromSaved,
+  addVideoToHistory,
 } from "../../../server";
 import Linkify from "linkifyjs/react";
 import { useVideo } from "../../../contexts";
@@ -38,7 +39,13 @@ function VideoDetail() {
 }
 
 const VideoComponents = ({ video, state, dispatch }) => {
-  const { likedVideos, dislikedVideos, playlists, savedVideos } = state;
+  const {
+    likedVideos,
+    dislikedVideos,
+    playlists,
+    savedVideos,
+    history,
+  } = state;
   const { tags, title, channelTitle, description, publishedAt, id } = video;
   const [showPlaylist, setShowPlaylist] = useState(false);
 
@@ -54,7 +61,12 @@ const VideoComponents = ({ video, state, dispatch }) => {
   return (
     <>
       <div className="video__container">
-        <YouTube className="video__player" videoId={id} opts={opts} />
+        <YouTube
+          className="video__player"
+          opts={opts}
+          onPlay={() => addVideoToHistory(dispatch, history, video)}
+          videoId={id}
+        />
       </div>
       <div className="video__detail">
         <ul className="list--inline li__wrapper">
@@ -165,7 +177,13 @@ const VideoComponents = ({ video, state, dispatch }) => {
             <p className="spacing--vh">Save</p>
           </div>
           <div className="action__container">
-            <OutlineButton>
+            <OutlineButton
+              onClick={() =>
+                navigator.clipboard.writeText(
+                  `https://www.youtube.com/watch?v=${id}`
+                )
+              }
+            >
               <i className="far fa-share fa-lg"></i>
             </OutlineButton>
             <p className="spacing--vh">Share</p>
@@ -190,14 +208,6 @@ const VideoComponents = ({ video, state, dispatch }) => {
   );
 };
 
-const opts = {
-  height: "390",
-  width: "640",
-  playerVars: {
-    modestbranding: 1,
-  },
-};
-
 const OutlineButton = ({ children, onClick, className }) => (
   <button
     onClick={onClick}
@@ -206,5 +216,12 @@ const OutlineButton = ({ children, onClick, className }) => (
     {children}
   </button>
 );
+
+const opts = {
+  playerVars: {
+    // autoplay: 1,
+    modestbranding: 1,
+  },
+};
 
 export default VideoDetail;

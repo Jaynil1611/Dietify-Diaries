@@ -83,6 +83,12 @@ const videoReducer = (prevState, { type, payload }) => {
           ? updateVideoPosition(prevState.history, payload.id)
           : addVideoToTop(prevState.history, payload),
       };
+    case actions.OPEN_OR_CLOSE_TOAST:
+      return {
+        ...prevState,
+        showToast: payload.show,
+        toastMessage: payload.text,
+      };
     case actions.UPDATE_TAG:
       return { ...prevState, tag: payload };
     default:

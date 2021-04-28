@@ -1,5 +1,3 @@
-import { tags } from "../database";
-
 const getDuration = (duration) => {
   const time_extractor = /([0-9]*H)?([0-9]*M)?([0-9]*S)?$/;
   const extracted = time_extractor.exec(duration);

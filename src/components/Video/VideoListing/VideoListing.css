@@ -13,7 +13,7 @@
   margin: 0.5rem;
   justify-content: flex-start;
   background: var(--background-color);
-  box-shadow: 0 5px 10px rgb(0 0 0 / 20%);
+  /* box-shadow: 0 5px 10px rgb(0 0 0 / 20%); */
 }
 
 .card__content--align {
@@ -27,14 +27,16 @@
 
 .video__captions {
   display: flex;
+  min-height: 5rem;
 }
 
 .video__title {
   display: -webkit-box;
-  max-height: 2.5em;
+  max-height: 2.5rem;
   -webkit-line-clamp: 2;
   -webkit-box-orient: vertical;
   overflow: hidden;
+  font-size: 0.9rem;
   line-height: 1.25;
   text-overflow: ellipsis;
 }
@@ -74,4 +76,14 @@
 
 .badge__icon--align:hover {
   opacity: 1;
+}
+
+.video__wrapper {
+  position: relative;
+}
+
+@media screen and (min-width: 648px) {
+  .video-showcase {
+    grid-template-columns: repeat(3, 1fr);
+  }
 }
