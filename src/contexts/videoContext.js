@@ -1,5 +1,6 @@
 import { createContext, useContext, useReducer } from "react";
 import { videoReducer } from "../reducers";
+import { initialState } from "./initialState";
 
 const VideoContext = createContext();
 
@@ -8,19 +9,7 @@ export const useVideo = () => {
 };
 
 const VideoContextProvider = ({ children }) => {
-  const [state, dispatch] = useReducer(videoReducer, {
-    videoList: [],
-    playlists: [],
-    watchLater: [],
-    history: [],
-    likedVideos: [],
-    dislikedVideos: [],
-    savedVideos: [],
-    search: "",
-    tag: "",
-    showToast: false,
-    toastMessage: "",
-  });
+  const [state, dispatch] = useReducer(videoReducer, initialState);
 
   return (
     <VideoContext.Provider value={{ state, dispatch }}>
