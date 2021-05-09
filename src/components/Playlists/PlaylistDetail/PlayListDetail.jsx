@@ -1,10 +1,14 @@
 import React from "react";
 import "./PlayListDetail.css";
 import { VideoListing } from "../../index";
-import { useNavigate, useParams } from "react-router";
-import { getFilteredList, getListDetails } from "../../../utils";
+import { useParams } from "react-router";
+import {
+  getFilteredList,
+  getListDetails,
+  useDocumentTitle,
+} from "../../../utils";
 import { useVideo } from "../../../contexts";
-import { removePlaylist } from "../../../server";
+import PlayListHeading from "./PlayListHeading";
 
 function PlayListDetail() {
   const {
@@ -12,7 +16,7 @@ function PlayListDetail() {
     dispatch,
   } = useVideo();
   const { playlistId } = useParams();
-
+  useDocumentTitle("PlaylistDetail");
   const currentPlaylist = getListDetails(playlists, playlistId);
   const filteredVideoList = currentPlaylist
     ? getFilteredList(currentPlaylist?.videoList)
@@ -41,26 +45,5 @@ function PlayListDetail() {
     </div>
   );
 }
-
-export const PlayListHeading = ({ name, length, playlist, dispatch, type }) => {
-  const navigate = useNavigate();
-  return (
-    <>
-      <div className="subtitle--md spacing--sm playlist__heading">
-        <div>{name}</div>
-        <div className={`${type === "playlist" ? "spacing--horiz" : "hide"}`}>
-          <i
-            onClick={() => {
-              removePlaylist(dispatch, playlist);
-              navigate("/playlists");
-            }}
-            className="fas fa-trash-alt fa-md"
-          ></i>
-        </div>
-      </div>
-      <div className="spacing--horiz body--md">{length} videos</div>
-    </>
-  );
-};
 
 export default PlayListDetail;

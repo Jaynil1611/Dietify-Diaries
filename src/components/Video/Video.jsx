@@ -4,13 +4,20 @@ import { tags } from "../../database";
 import { useVideo } from "../../contexts";
 import { VideoListing } from "../index";
 import { actions } from "../../reducers";
-import { getSearchedData, getUpdatedTagData } from "../../utils";
+import {
+  getSearchedData,
+  getUpdatedTagData,
+  useDocumentTitle,
+  useToastCleaner,
+} from "../../utils";
 
 function Video() {
   const {
     state: { videoList, search, tag },
     dispatch,
   } = useVideo();
+  useDocumentTitle("Video");
+  useToastCleaner();
 
   const searchedData = getSearchedData(videoList, search);
   const taggedData = getUpdatedTagData(searchedData, tag);

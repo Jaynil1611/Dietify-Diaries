@@ -2,18 +2,22 @@ import React, { useEffect, useState } from "react";
 import { useParams } from "react-router";
 import YouTube from "react-youtube";
 import "./VideoDetail.css";
-import { getPublishedDate, checkVideoExists } from "../../../utils";
+import { getPublishedDate } from "../../../utils";
 import {
-  addOrRemoveVideoFromPlaylist,
   callMockServer,
-  addOrRemoveVideoFromLiked,
-  addOrRemoveVideoFromDisliked,
   addPlaylist,
-  addOrRemoveVideoFromSaved,
   addVideoToHistory,
 } from "../../../server";
 import Linkify from "linkifyjs/react";
 import { useVideo } from "../../../contexts";
+import {
+  LikeAction,
+  DislikeAction,
+  AddToPlaylistAction,
+  SaveAction,
+  ShareAction,
+} from "./VideoActions";
+import PlayListModal from "./PlayListModal";
 
 function VideoDetail() {
   const { videoId } = useParams();
@@ -54,7 +58,10 @@ const VideoComponents = ({ video, state, dispatch }) => {
 
   const addNewPlaylistOption = (e) => {
     e.preventDefault();
-    addPlaylist(dispatch, e.target.form[0].value);
+    const value = e.target.form[0].value;
+    value
+      ? addPlaylist(dispatch, value)
+      : alert("Playlist name cannot be empty");
     e.target.form.reset();
   };
 
@@ -80,114 +87,34 @@ const VideoComponents = ({ video, state, dispatch }) => {
           <p className="title text--bold subtitle--sm">{title}</p>
         </div>
         <div className="video__actions">
-          <div className="action__container">
-            <OutlineButton
-              onClick={() =>
-                addOrRemoveVideoFromLiked(dispatch, likedVideos, video)
-              }
-            >
-              <i
-                className={`fa${
-                  checkVideoExists(likedVideos, id) ? "s liked" : "r"
-                } fa-thumbs-up icon fa-lg                   
-                `}
-              ></i>
-            </OutlineButton>
-            <p className="spacing--vh">Like</p>
-          </div>
-          <div className="action__container">
-            <OutlineButton
-              onClick={() =>
-                addOrRemoveVideoFromDisliked(dispatch, dislikedVideos, video)
-              }
-            >
-              <i
-                className={`fa${
-                  checkVideoExists(dislikedVideos, id) ? "s liked" : "r"
-                } fa-thumbs-down icon fa-flip-horizontal fa-lg`}
-              ></i>
-            </OutlineButton>
-            <p className="spacing--vh">Dislike</p>
-          </div>
-          <div className="action__container">
-            <OutlineButton onClick={handleShowPlaylist}>
-              <i className="far fa-plus-square fa-lg"></i>
-            </OutlineButton>
-            <p className="spacing--vh">Add</p>
-          </div>
-          <div
-            onClick={closePlaylist}
-            className={`${showPlaylist ? "playlist__modal" : "hide"}`}
-          >
-            <div
-              onClick={(e) => e.stopPropagation()}
-              className="playlists__showcase"
-            >
-              <div className="modal__heading subtitle--md text--bold spacing--hz">
-                <p>Add to Playlist</p>
-                <div className="badge__icon badge__icon--align">
-                  <OutlineButton onClick={closePlaylist}>
-                    <i className="fas fa-times fa-lg"></i>
-                  </OutlineButton>
-                </div>
-              </div>
-              {playlists.map((playlist) => {
-                const { name, id, videoList } = playlist;
-                return (
-                  <div key={id} className="playlist__input spacing--hz">
-                    <input
-                      type="checkbox"
-                      defaultChecked={checkVideoExists(videoList, video.id)}
-                      onChange={() =>
-                        addOrRemoveVideoFromPlaylist(dispatch, playlist, video)
-                      }
-                    />
-                    <p className="spacing--horiz">{name}</p>
-                  </div>
-                );
-              })}
-              <form className="playlist__add spacing--hz">
-                <input
-                  className="input"
-                  type="text"
-                  placeholder="New playlist "
-                  required
-                />
-                <OutlineButton
-                  className="padding--sm"
-                  onClick={addNewPlaylistOption}
-                >
-                  ADD
-                </OutlineButton>
-              </form>
-            </div>
-          </div>
-          <div className="action__container">
-            <OutlineButton
-              onClick={() =>
-                addOrRemoveVideoFromSaved(dispatch, savedVideos, video)
-              }
-            >
-              <i
-                className={`fa${
-                  checkVideoExists(savedVideos, id) ? "s" : "r"
-                } fa-bookmark fa-lg`}
-              ></i>
-            </OutlineButton>
-            <p className="spacing--vh">Save</p>
-          </div>
-          <div className="action__container">
-            <OutlineButton
-              onClick={() =>
-                navigator.clipboard.writeText(
-                  `https://www.youtube.com/watch?v=${id}`
-                )
-              }
-            >
-              <i className="far fa-share fa-lg"></i>
-            </OutlineButton>
-            <p className="spacing--vh">Share</p>
-          </div>
+          <LikeAction
+            dispatch={dispatch}
+            likedVideos={likedVideos}
+            video={video}
+            id={id}
+          />
+          <DislikeAction
+            dispatch={dispatch}
+            dislikedVideos={dislikedVideos}
+            video={video}
+            id={id}
+          />
+          <AddToPlaylistAction handleShowPlaylist={handleShowPlaylist} />
+          <PlayListModal
+            dispatch={dispatch}
+            addNewPlaylistOption={addNewPlaylistOption}
+            closePlaylist={closePlaylist}
+            showPlaylist={showPlaylist}
+            playlists={playlists}
+            video={video}
+          />
+          <SaveAction
+            dispatch={dispatch}
+            savedVideos={savedVideos}
+            id={id}
+            video={video}
+          />
+          <ShareAction id={id} />
         </div>
         <div className="video__channel">
           <img
@@ -207,15 +134,6 @@ const VideoComponents = ({ video, state, dispatch }) => {
     </>
   );
 };
-
-const OutlineButton = ({ children, onClick, className }) => (
-  <button
-    onClick={onClick}
-    className={`button button--outline-v2 ${className}`}
-  >
-    {children}
-  </button>
-);
 
 const opts = {
   playerVars: {

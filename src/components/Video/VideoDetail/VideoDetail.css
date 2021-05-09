@@ -95,7 +95,7 @@
   width: 100%;
   height: 100%;
   background-color: hsla(0, 0%, 6.7%, 0.8);
-  z-index: var(--z-index-10);
+  z-index: var(--z-index-7);
   display: -webkit-flex;
   display: flex;
   -webkit-justify-content: center;
@@ -167,6 +167,11 @@ input[type="checkbox"] {
 }
 
 @media screen and (min-width: 648px) {
+  .playlists__showcase {
+    width: 35%;
+    margin: auto;
+  }
+
   .video__container {
     padding-top: 30%;
   }
@@ -180,6 +185,7 @@ input[type="checkbox"] {
     white-space: break-spaces;
     -webkit-line-clamp: 9;
   }
+
   .video__detail {
     max-width: 60%;
   }
