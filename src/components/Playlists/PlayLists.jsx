@@ -1,7 +1,11 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import { useVideo } from "../../contexts";
-import { getFilteredList, useDocumentTitle } from "../../utils";
+import {
+  getFilteredList,
+  useDocumentTitle,
+  useToastCleaner,
+} from "../../utils";
 import PlayListView from "./PlayListView";
 import "./PlayLists.css";
 
@@ -9,6 +13,7 @@ function PlayLists() {
   const {
     state: { playlists, likedVideos, savedVideos },
   } = useVideo();
+  useToastCleaner();
   useDocumentTitle("Playlists");
   const updatedPlaylists = getFilteredList(playlists);
   return (

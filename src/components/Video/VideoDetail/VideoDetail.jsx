@@ -2,7 +2,11 @@ import React, { useEffect, useState } from "react";
 import { useParams } from "react-router";
 import YouTube from "react-youtube";
 import "./VideoDetail.css";
-import { getPublishedDate } from "../../../utils";
+import {
+  getPublishedDate,
+  useDocumentTitle,
+  useToastCleaner,
+} from "../../../utils";
 import {
   callMockServer,
   addPlaylist,
@@ -23,6 +27,9 @@ function VideoDetail() {
   const { videoId } = useParams();
   const { state, dispatch } = useVideo();
   const [currentVideo, setCurrentVideo] = useState({});
+  useToastCleaner();
+  useDocumentTitle("VideoDetail");
+
   useEffect(() => {
     (async () => {
       const { response, error } = await callMockServer({

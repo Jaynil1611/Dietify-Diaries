@@ -6,6 +6,7 @@ import {
   getFilteredList,
   getListDetails,
   useDocumentTitle,
+  useToastCleaner,
 } from "../../../utils";
 import { useVideo } from "../../../contexts";
 import PlayListHeading from "./PlayListHeading";
@@ -16,6 +17,7 @@ function PlayListDetail() {
     dispatch,
   } = useVideo();
   const { playlistId } = useParams();
+  useToastCleaner();
   useDocumentTitle("PlaylistDetail");
   const currentPlaylist = getListDetails(playlists, playlistId);
   const filteredVideoList = currentPlaylist
