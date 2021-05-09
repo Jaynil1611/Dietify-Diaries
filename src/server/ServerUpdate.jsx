@@ -87,6 +87,12 @@ const addOrRemoveVideoFromPlaylist = async (dispatch, playlist, video) => {
   );
   if (!error) {
     const { playlist: playlistResponse } = response.data;
+    handleToast(
+      dispatch,
+      itemExists
+        ? `Video removed from ${playlistResponse.name}`
+        : `Video added to ${playlistResponse.name}`
+    );
     itemExists
       ? dispatch({
           type: actions.REMOVE_FROM_PLAYLIST,
@@ -112,6 +118,7 @@ const addPlaylist = async (dispatch, name) => {
     },
   });
   if (!error) {
+    handleToast(dispatch, `${name} playlist created`);
     dispatch({
       type: actions.ADD_NEW_PLAYLIST,
       payload: response.data.playlist,
@@ -126,6 +133,7 @@ const removePlaylist = async (dispatch, playlist) => {
     data: { playlist: { ...playlist, status: "deleted" } },
   });
   if (!error) {
+    handleToast(dispatch, `${playlist.name} playlist deleted`);
     dispatch({
       type: actions.REMOVE_PLAYLIST,
       payload: response.data.playlist,
@@ -141,6 +149,12 @@ const addOrRemoveVideoFromSaved = async (dispatch, list, video) => {
   );
   if (!error) {
     const { save: videoResponse } = response.data;
+    handleToast(
+      dispatch,
+      itemExists
+        ? `Video removed from Saved videos`
+        : `Video added to Saved videos`
+    );
     itemExists
       ? dispatch({
           type: actions.REMOVE_FROM_SAVED_LIST,
