@@ -1,15 +1,8 @@
 import "./styles.css";
 import { useAxios } from "./server";
-import { Routes, Route, Link } from "react-router-dom";
-import {
-  PlayListDetail,
-  Video,
-  VideoDetail,
-  PlayLists,
-  Like,
-  Saved,
-  History,
-} from "./components";
+import { NavLink, Link } from "react-router-dom";
+import { Toast } from "./components";
+import { RouteList } from "./routes";
 import { useState } from "react";
 
 function App() {
@@ -58,29 +51,27 @@ function App() {
           >
             <ul className="list__group li--border sidebar--scroll">
               {menuList.map(({ name, icon, path }) => (
-                <li key={name} className="list__item li--border">
-                  <Link onClick={handleSideMenuClick} to={`${path}`}>
+                <li key={name} className="list__item li--border spacing--sm">
+                  <NavLink
+                    end
+                    onClick={handleSideMenuClick}
+                    to={`${path}`}
+                    className="active"
+                    activeClassName="active"
+                  >
                     <span className="padding--right-md">
                       <i className={`fas ${icon} icon--md`}></i>
                     </span>
                     <span className="subtitle--sm">{name}</span>
-                  </Link>
+                  </NavLink>
                 </li>
               ))}
             </ul>
           </div>
         </div>
         <div className="video__display">
-          <Routes>
-            <Route path="/" element={<Video />} />
-            <Route path="/videos" element={<Video />} />
-            <Route path="/videos/:videoId" element={<VideoDetail />} />
-            <Route path="/playlists" element={<PlayLists />} />
-            <Route path="/playlists/:playlistId" element={<PlayListDetail />} />
-            <Route path="/liked" element={<Like />} />
-            <Route path="/saved" element={<Saved />} />
-            <Route path="/history" element={<History />} />
-          </Routes>
+          <Toast />
+          <RouteList />
         </div>
       </div>
     </>

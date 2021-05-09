@@ -109,6 +109,16 @@ ul {
   display: inline-block;
 }
 
+.active {
+  padding: 0.5rem;
+  width: 100%;
+}
+
+.active:hover,
+.active:focus {
+  background: var(--light-color);
+}
+
 @media screen and (min-width: 992px) {
   .main-content {
     margin-top: 10%;
