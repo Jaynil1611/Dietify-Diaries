@@ -1,7 +1,6 @@
 export const initialState = {
   videoList: [],
   playlists: [],
-  watchLater: [],
   history: [],
   likedVideos: [],
   dislikedVideos: [],
