@@ -1,0 +1,16 @@
+{
+  "name": "dietify-diaries-backend",
+  "version": 2,
+  "builds": [
+    {
+      "src": "backend/index.js",
+      "use": "@vercel/node"
+    }
+  ],
+  "routes": [
+    {
+      "src": "backend/(.*)",
+      "dest": "/backend"
+    }
+  ]
+}
