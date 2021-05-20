@@ -2,11 +2,7 @@ import React from "react";
 import "./PlayListDetail.css";
 import { VideoListing } from "../../index";
 import { useParams } from "react-router";
-import {
-  getFilteredList,
-  getListDetails,
-  useDocumentTitle,
-} from "../../../utils";
+import { getListDetails, useDocumentTitle } from "../../../utils";
 import { useVideo } from "../../../contexts";
 import PlayListHeading from "./PlayListHeading";
 
@@ -19,9 +15,7 @@ function PlayListDetail() {
   useDocumentTitle("PlaylistDetail");
 
   const currentPlaylist = getListDetails(playlists, playlistId);
-  const filteredVideoList = currentPlaylist
-    ? getFilteredList(currentPlaylist?.videoList)
-    : [];
+  const filteredVideoList = currentPlaylist?.videoList;
 
   return (
     <div>

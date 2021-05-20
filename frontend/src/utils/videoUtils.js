@@ -51,32 +51,18 @@ const addNewPlaylist = (playlists, playlist) => {
   return playlists.concat(playlist);
 };
 
+const removePlaylist = (list, playlistId) => {
+  return list.filter(({ id }) => id !== playlistId);
+};
+
 const updatePlaylist = (playlists, updatedPlaylist) => {
   return playlists.map((playlist) =>
     playlist.id === updatedPlaylist.id ? updatedPlaylist : playlist
   );
 };
 
-const addVideoToPlaylist = (playlists, updatedPlaylist) => {
-  return playlists.map((playlist) => {
-    if (playlist.id === updatedPlaylist.id) {
-      return updatedPlaylist;
-    }
-    return playlist;
-  });
-};
-
-const removeVideoFromPlaylist = (playlists, updatedPlaylist) => {
-  return playlists.map((playlist) => {
-    if (playlist.id === updatedPlaylist.id) {
-      return updatedPlaylist;
-    }
-    return playlist;
-  });
-};
-
 const getFilteredList = (list) => {
-  return list.filter(({ status }) => status !== "deleted");
+  return list.filter(({ videoList }) => videoList.length > 0);
 };
 
 const addVideoToTop = (list, video) => {
@@ -105,14 +91,13 @@ export {
   checkVideoExists,
   removeVideo,
   addVideo,
-  addVideoToPlaylist,
   addNewPlaylist,
-  removeVideoFromPlaylist,
+  updatePlaylist,
   getSearchedData,
   getFilteredList,
-  updatePlaylist,
   addVideoToTop,
   updateVideoPosition,
   getUpdatedTagData,
   getVideoFromList,
+  removePlaylist,
 };

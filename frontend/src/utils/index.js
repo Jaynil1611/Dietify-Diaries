@@ -4,16 +4,17 @@ export {
   getListDetails,
   getPublishDistance,
   checkVideoExists,
-  addVideo,
   removeVideo,
-  addVideoToPlaylist,
-  removeVideoFromPlaylist,
+  addVideo,
   addNewPlaylist,
+  updatePlaylist,
   getSearchedData,
   getFilteredList,
-  updatePlaylist,
+  addVideoToTop,
+  updateVideoPosition,
   getUpdatedTagData,
   getVideoFromList,
+  removePlaylist,
 } from "./videoUtils";
 export { default as useCleaner } from "./useCleaner";
 export { default as useDocumentTitle } from "./useDocumenTitle";

@@ -132,7 +132,7 @@ const removePlaylist = async (dispatch, playlist) => {
     handleToast(dispatch, `${playlist.name} playlist deleted`);
     dispatch({
       type: actions.REMOVE_PLAYLIST,
-      payload: response.data.playlist,
+      payload: { id: response.data.playlist.id },
     });
   }
 };

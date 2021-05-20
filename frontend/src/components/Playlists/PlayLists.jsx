@@ -9,12 +9,11 @@ function PlayLists() {
   const {
     state: { playlists, likedVideos, savedVideos },
   } = useVideo();
-
   useDocumentTitle("Playlists");
-  const updatedPlaylists = getFilteredList(playlists);
+
   return (
     <>
-      {updatedPlaylists.length === 0 && likedVideos.length === 0 ? (
+      {playlists.length === 0 && likedVideos.length === 0 ? (
         <div className="subtitle--md text--bold spacing">
           Loading Playlists...
         </div>
@@ -22,14 +21,13 @@ function PlayLists() {
         <>
           <div className="subtitle--md text--bold spacing">Your Playlists</div>
           <div className="playlist__container">
-            {updatedPlaylists.map((playlist) => {
+            {getFilteredList(playlists).map((playlist) => {
               const { name, id, videoList } = playlist;
               return (
                 <Link key={id} to={`${id}`}>
-                  <PlayListView
-                    name={name}
-                    videoList={getFilteredList(videoList)}
-                  />
+                  {videoList.length > 0 && (
+                    <PlayListView name={name} videoList={videoList} />
+                  )}
                 </Link>
               );
             })}

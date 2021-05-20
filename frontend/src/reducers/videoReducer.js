@@ -1,12 +1,12 @@
 import {
   addNewPlaylist,
   addVideo,
-  addVideoToPlaylist,
-  removeVideoFromPlaylist,
   removeVideo,
   updatePlaylist,
+  addVideoToTop,
+  removePlaylist,
+  updateVideoPosition,
 } from "../utils";
-import { addVideoToTop, updateVideoPosition } from "../utils/videoUtils";
 import { actions } from "./Actions";
 
 const videoReducer = (prevState, { type, payload }) => {
@@ -41,15 +41,12 @@ const videoReducer = (prevState, { type, payload }) => {
     case actions.ADD_TO_PLAYLIST:
       return {
         ...prevState,
-        playlists: addVideoToPlaylist(prevState.playlists, payload.playlist),
+        playlists: updatePlaylist(prevState.playlists, payload.playlist),
       };
     case actions.REMOVE_FROM_PLAYLIST:
       return {
         ...prevState,
-        playlists: removeVideoFromPlaylist(
-          prevState.playlists,
-          payload.playlist
-        ),
+        playlists: updatePlaylist(prevState.playlists, payload.playlist),
       };
     case actions.ADD_NEW_PLAYLIST:
       return {
@@ -59,7 +56,7 @@ const videoReducer = (prevState, { type, payload }) => {
     case actions.REMOVE_PLAYLIST:
       return {
         ...prevState,
-        playlists: updatePlaylist(prevState.playlists, payload),
+        playlists: removePlaylist(prevState.playlists, payload.id),
       };
     case actions.UPDATE_SEARCH_PARAMETER:
       return {
