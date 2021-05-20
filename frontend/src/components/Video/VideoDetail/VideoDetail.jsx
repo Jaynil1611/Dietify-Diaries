@@ -5,7 +5,6 @@ import "./VideoDetail.css";
 import {
   getPublishedDate,
   useDocumentTitle,
-  useToastCleaner,
   getVideoFromList,
 } from "../../../utils";
 import { addPlaylist, addVideoToHistory } from "../../../server";
@@ -18,14 +17,13 @@ import {
   SaveAction,
   ShareAction,
 } from "./VideoActions";
-import PlayListModal from "./PlayListModal";
+import { PlayListModal } from "../../index";
 
 function VideoDetail() {
   const { videoId } = useParams();
   const { state, dispatch } = useVideo();
   const { videoList } = state;
   const [currentVideo, setCurrentVideo] = useState({});
-  useToastCleaner();
   useDocumentTitle("VideoDetail");
 
   useEffect(() => {

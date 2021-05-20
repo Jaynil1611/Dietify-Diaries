@@ -1,6 +1,6 @@
 import { checkVideoExists } from "../../../utils";
 import { addOrRemoveVideoFromPlaylist } from "../../../server";
-import { OutlineButton } from "./VideoActions";
+import { OutlineButton } from "../../index";
 
 const PlayListModal = ({
   closePlaylist,

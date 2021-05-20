@@ -8,7 +8,6 @@ import {
   getSearchedData,
   getUpdatedTagData,
   useDocumentTitle,
-  useToastCleaner,
 } from "../../utils";
 
 function Video() {
@@ -17,14 +16,16 @@ function Video() {
     dispatch,
   } = useVideo();
   useDocumentTitle("Video");
-  useToastCleaner();
 
   const searchedData = getSearchedData(videoList, search);
   const taggedData = getUpdatedTagData(searchedData, tag);
   return (
     <div>
       <SearchBar dispatch={dispatch} />
-      <div className="scroll--hover">
+      <div
+        className="scroll--hover"
+        onBlur={() => dispatch({ type: actions.UPDATE_TAG, payload: "" })}
+      >
         <Tags dispatch={dispatch} />
       </div>
       <div className="video-container">
@@ -55,7 +56,10 @@ export const SearchBar = ({ dispatch }) => {
 };
 
 export const Tags = ({ dispatch }) => (
-  <ul className="list--inline display__tags">
+  <ul
+    className="list--inline display__tags"
+    onClick={(e) => e.stopPropagation()}
+  >
     {tags.map((tag) => (
       <li key={tag} className="list__item list__item--border">
         <SecondaryButton

@@ -1,13 +1,12 @@
 import React from "react";
 import { useVideo } from "../../contexts";
-import { useDocumentTitle, useToastCleaner } from "../../utils";
+import { useDocumentTitle } from "../../utils";
 import { VideoListing, PlayListHeading } from "../index";
 
 function History() {
   const {
     state: { history },
   } = useVideo();
-  useToastCleaner();
   useDocumentTitle("History");
 
   return (
