@@ -15,5 +15,5 @@ export {
   getUpdatedTagData,
   getVideoFromList,
 } from "./videoUtils";
-export { default as useToastCleaner } from "./useToastCleaner";
+export { default as useCleaner } from "./useCleaner";
 export { default as useDocumentTitle } from "./useDocumenTitle";

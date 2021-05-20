@@ -3,6 +3,8 @@ import { useVideo } from "../contexts";
 import { callMockServer } from "./index";
 import { actions } from "../reducers";
 
+const userId = "60a35a72ffb1fa01498940eb";
+
 export default function useAxios(resource, name) {
   const { dispatch } = useVideo();
   const [loadingStatus, setLoadingStatus] = useState(false);
@@ -16,7 +18,7 @@ export default function useAxios(resource, name) {
           error,
         } = await callMockServer({
           type: "get",
-          url: `/api/${resource}`,
+          url: constructURL(resource),
         });
         if (!error) {
           dispatch({
@@ -34,3 +36,10 @@ export default function useAxios(resource, name) {
 
   return { loadingStatus, error };
 }
+
+const constructURL = (resource) => {
+  if (resource === "videos") {
+    return `${process.env.REACT_APP_BACKEND_URL}/${resource}`;
+  }
+  return `${process.env.REACT_APP_BACKEND_URL}/user/${userId}/${resource}`;
+};
