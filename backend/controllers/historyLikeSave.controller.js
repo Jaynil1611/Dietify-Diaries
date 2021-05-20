@@ -44,4 +44,5 @@ const deleteVideo = async (req, res) => {
   res.status(200).json({ success: true, video });
 };
 
+
 module.exports = { getVideos, postVideo, deleteVideo };
