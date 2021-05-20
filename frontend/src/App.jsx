@@ -1,9 +1,10 @@
 import "./styles.css";
 import { useAxios } from "./server";
 import { NavLink, Link } from "react-router-dom";
-import { Toast } from "./components";
+import { ScrollToTop, Toast } from "./components";
 import { RouteList } from "./routes";
 import { useState } from "react";
+import { useCleaner } from "./utils";
 
 function App() {
   const [showMenu, setShowMenu] = useState(false);
@@ -15,7 +16,8 @@ function App() {
   useAxios("playlists", "playlists");
   useAxios("likes", "likedVideos");
   useAxios("saves", "savedVideos");
-  useAxios("histories", "history");
+  useAxios("history", "history");
+  useCleaner();
 
   return (
     <>
@@ -44,7 +46,7 @@ function App() {
           </ul>
         </nav>
       </div>
-      <div className="main-content">
+      <div className="main-content" >
         <div className={`side-bar ${showMenu ? "show" : "side-bar--desktop"}`}>
           <div
             className={`side-menu ${showMenu ? "view" : "side-menu--desktop"}`}
@@ -71,6 +73,7 @@ function App() {
         </div>
         <div className="video__display">
           <Toast />
+          <ScrollToTop />
           <RouteList />
         </div>
       </div>
