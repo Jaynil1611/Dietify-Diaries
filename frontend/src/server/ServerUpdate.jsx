@@ -1,31 +1,39 @@
 import { callMockServer } from ".";
 import { actions } from "../reducers";
 import { checkVideoExists } from "../utils";
-import faker from "faker";
 import { handleToast } from "../components";
+
+const userId = "60a35a72ffb1fa01498940eb";
+
+const constructURL = () => {
+  return `${process.env.REACT_APP_BACKEND_URL}/user/${userId}`;
+};
 
 // -------------------- Liked Server Updates ---------------------------------------------
 const getRequestObject = (itemExists, video, resource) => {
   return itemExists
     ? {
-        type: "put",
-        url: `/api/${resource}s/${video.id}`,
-        data: { [resource]: { ...video, status: "deleted" } },
+        type: "delete",
+        url: `${constructURL()}/${resource}/${video._id}`,
       }
     : {
         type: "post",
-        url: `/api/${resource}s`,
-        data: { [resource]: video },
+        url: `${constructURL()}/${resource}`,
+        data: video,
       };
 };
 
 const addOrRemoveVideoFromLiked = async (dispatch, list, video) => {
   const itemExists = checkVideoExists(list, video.id);
   const { response, error } = await callMockServer(
-    getRequestObject(itemExists, video, "like")
+    getRequestObject(itemExists, video, "likes")
   );
   if (!error) {
-    const { like: videoResponse } = response.data;
+    const { video: videoResponse } = response.data;
+    handleToast(
+      dispatch,
+      itemExists ? "Removed from Liked videos" : "Added to Liked videos"
+    );
     itemExists
       ? dispatch({
           type: actions.REMOVE_FROM_LIKED_LIST,
@@ -38,6 +46,10 @@ const addOrRemoveVideoFromLiked = async (dispatch, list, video) => {
 // -------------------- Disliked Server Updates ---------------------------------------------
 const addOrRemoveVideoFromDisliked = (dispatch, list, video) => {
   const itemExists = checkVideoExists(list, video.id);
+  handleToast(
+    dispatch,
+    itemExists ? "Dislike Removed" : "You disliked this video"
+  );
   itemExists
     ? dispatch({
         type: actions.REMOVE_FROM_DISLIKED_LIST,
@@ -48,36 +60,24 @@ const addOrRemoveVideoFromDisliked = (dispatch, list, video) => {
 
 // -------------------- Playlist Server Updates ---------------------------------------------
 const getRequestObjectForPlaylist = (itemExists, playlist, video) => {
-  if (itemExists) {
-    return {
-      type: "put",
-      url: `/api/playlists/${playlist.id}`,
-      data: {
-        playlist: {
-          ...playlist,
-          videoList: getUpdatedVideoListForPlaylist(playlist, video),
-        },
-      },
-    };
-  }
   return {
     type: "post",
-    url: "/api/playlists",
+    url: `${constructURL()}/playlists/${playlist.id}`,
     data: {
-      playlist: {
-        ...playlist,
-        videoList: playlist.videoList.concat(video),
-      },
+      ...playlist,
+      videoList: getUpdatedVideoListForPlaylist(
+        itemExists,
+        playlist.videoList,
+        video
+      ),
     },
   };
 };
 
-const getUpdatedVideoListForPlaylist = (playlist, videoToBeDeleted) => {
-  return playlist.videoList.map((video) => {
-    return video.id === videoToBeDeleted.id
-      ? { ...video, status: "deleted" }
-      : video;
-  });
+const getUpdatedVideoListForPlaylist = (itemExists, videoList, video) => {
+  return itemExists
+    ? videoList.filter(({ id }) => id !== video.id)
+    : videoList.concat(video);
 };
 
 const addOrRemoveVideoFromPlaylist = async (dispatch, playlist, video) => {
@@ -93,7 +93,7 @@ const addOrRemoveVideoFromPlaylist = async (dispatch, playlist, video) => {
         ? `Video removed from ${playlistResponse.name}`
         : `Video added to ${playlistResponse.name}`
     );
-    itemExists
+    return itemExists
       ? dispatch({
           type: actions.REMOVE_FROM_PLAYLIST,
           payload: { playlist: playlistResponse },
@@ -108,13 +108,10 @@ const addOrRemoveVideoFromPlaylist = async (dispatch, playlist, video) => {
 const addPlaylist = async (dispatch, name) => {
   const { response, error } = await callMockServer({
     type: "post",
-    url: "/api/playlists",
+    url: `${constructURL()}/playlists`,
     data: {
-      playlist: {
-        id: faker.datatype.uuid(),
-        name,
-        videoList: [],
-      },
+      name,
+      videoList: [],
     },
   });
   if (!error) {
@@ -128,9 +125,8 @@ const addPlaylist = async (dispatch, name) => {
 
 const removePlaylist = async (dispatch, playlist) => {
   const { response, error } = await callMockServer({
-    type: "put",
-    url: `/api/playlists/${playlist.id}`,
-    data: { playlist: { ...playlist, status: "deleted" } },
+    type: "delete",
+    url: `${constructURL()}/playlists/${playlist.id}`,
   });
   if (!error) {
     handleToast(dispatch, `${playlist.name} playlist deleted`);
@@ -145,15 +141,13 @@ const removePlaylist = async (dispatch, playlist) => {
 const addOrRemoveVideoFromSaved = async (dispatch, list, video) => {
   const itemExists = checkVideoExists(list, video.id);
   const { response, error } = await callMockServer(
-    getRequestObject(itemExists, video, "save")
+    getRequestObject(itemExists, video, "saves")
   );
   if (!error) {
-    const { save: videoResponse } = response.data;
+    const { video: videoResponse } = response.data;
     handleToast(
       dispatch,
-      itemExists
-        ? `Video removed from Saved videos`
-        : `Video added to Saved videos`
+      itemExists ? "Removed from Saved videos" : "Added to Saved videos"
     );
     itemExists
       ? dispatch({
@@ -175,11 +169,11 @@ const addVideoToHistory = async (dispatch, list, video) => {
   }
   const { response, error } = await callMockServer({
     type: "post",
-    url: "/api/histories",
-    data: { history: video },
+    url: `${constructURL()}/history`,
+    data: video,
   });
   if (!error) {
-    const { history: videoResponse } = response.data;
+    const { video: videoResponse } = response.data;
     dispatch({
       type: actions.UPDATE_HISTORY,
       payload: videoResponse,
