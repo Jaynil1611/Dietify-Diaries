@@ -6,7 +6,7 @@ import { handleToast } from "../components";
 const userId = "60a35a72ffb1fa01498940eb";
 
 const constructURL = () => {
-  return `${process.env.REACT_APP_BACKEND_URL}/user/${userId}`;
+  return `${process.env.REACT_APP_BACKEND_URL}/users/${userId}`;
 };
 
 // -------------------- Liked Server Updates ---------------------------------------------
@@ -44,18 +44,27 @@ const addOrRemoveVideoFromLiked = async (dispatch, list, video) => {
 };
 
 // -------------------- Disliked Server Updates ---------------------------------------------
-const addOrRemoveVideoFromDisliked = (dispatch, list, video) => {
+const addOrRemoveVideoFromDisliked = async (dispatch, list, video) => {
   const itemExists = checkVideoExists(list, video.id);
-  handleToast(
-    dispatch,
-    itemExists ? "Dislike Removed" : "You disliked this video"
+  const { response, error } = await callMockServer(
+    getRequestObject(itemExists, video, "dislikes")
   );
-  itemExists
-    ? dispatch({
-        type: actions.REMOVE_FROM_DISLIKED_LIST,
-        payload: { id: video.id },
-      })
-    : dispatch({ type: actions.ADD_TO_DISLIKED_LIST, payload: video });
+  if (!error) {
+    const { video: videoResponse } = response.data;
+    handleToast(
+      dispatch,
+      itemExists ? "Dislike Removed" : "You disliked this video"
+    );
+    itemExists
+      ? dispatch({
+          type: actions.REMOVE_FROM_DISLIKED_LIST,
+          payload: { id: video.id },
+        })
+      : dispatch({
+          type: actions.ADD_TO_DISLIKED_LIST,
+          payload: videoResponse,
+        });
+  }
 };
 
 // -------------------- Playlist Server Updates ---------------------------------------------

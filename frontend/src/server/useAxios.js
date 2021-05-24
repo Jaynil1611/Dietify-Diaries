@@ -41,5 +41,5 @@ const constructURL = (resource) => {
   if (resource === "videos") {
     return `${process.env.REACT_APP_BACKEND_URL}/${resource}`;
   }
-  return `${process.env.REACT_APP_BACKEND_URL}/user/${userId}/${resource}`;
+  return `${process.env.REACT_APP_BACKEND_URL}/users/${userId}/${resource}`;
 };
