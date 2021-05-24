@@ -2,7 +2,7 @@ const { Video } = require("../models/video.model");
 
 const getVideos = async (req, res) => {
   try {
-    let videos = await Video.find({});
+    const videos = await Video.find({});
     res.status(200).json({ success: true, videos });
   } catch (error) {
     res.status(500).json({
@@ -14,7 +14,7 @@ const getVideos = async (req, res) => {
 };
 
 const getVideoById = async (req, res) => {
-  let { video } = req;
+  const { video } = req;
   res.status(200).json({ success: true, video });
 };
 

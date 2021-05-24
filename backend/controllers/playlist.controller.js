@@ -41,10 +41,10 @@ const getPlaylistById = async (req, res, next) => {
 
 const updatePlaylist = async (req, res, next) => {
   let { playlist } = req;
-  let playlistUpdates = req.body;
+  const playlistUpdates = req.body;
   playlist = extend(playlist, playlistUpdates);
   try {
-    updatedPlaylist = await playlist.save();
+    const updatedPlaylist = await playlist.save();
     playlist = await updatedPlaylist.populate("videoList").execPopulate();
     res.status(201).json({ success: true, playlist });
   } catch (error) {
@@ -54,8 +54,12 @@ const updatePlaylist = async (req, res, next) => {
 
 const deletePlaylist = async (req, res) => {
   let { playlist } = req;
-  playlist = await playlist.delete();
-  res.status(200).json({ success: true, playlist });
+  try {
+    playlist = await playlist.delete();
+    res.status(200).json({ success: true, playlist });
+  } catch (error) {
+    next(error);
+  }
 };
 
 module.exports = {

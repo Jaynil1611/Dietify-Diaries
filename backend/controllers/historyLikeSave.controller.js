@@ -18,7 +18,7 @@ const getVideos = async (req, res, next, Model, name) => {
 
 const postVideo = async (req, res, next, Model) => {
   try {
-    let video = req.body;
+    const video = req.body;
     const { userId } = req.params;
     const videoId = video._id;
     const checkVideoExists = await Model.findOne({ videoId });
@@ -40,9 +40,12 @@ const postVideo = async (req, res, next, Model) => {
 
 const deleteVideo = async (req, res) => {
   let { video } = req;
-  video = await video.delete();
-  res.status(200).json({ success: true, video });
+  try {
+    video = await video.delete();
+    res.status(200).json({ success: true, video });
+  } catch (error) {
+    next(error);
+  }
 };
-
 
 module.exports = { getVideos, postVideo, deleteVideo };
