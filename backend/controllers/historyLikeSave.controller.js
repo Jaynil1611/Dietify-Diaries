@@ -18,9 +18,8 @@ const getVideos = async (req, res, next, Model, name) => {
 
 const postVideo = async (req, res, next, Model) => {
   try {
-    const video = req.body;
+    const { _id: videoId } = req.body;
     const { userId } = req.params;
-    const videoId = video._id;
     const checkVideoExists = await Model.findOne({ videoId });
     if (!checkVideoExists) {
       let newVideo = new Model({ userId, videoId });

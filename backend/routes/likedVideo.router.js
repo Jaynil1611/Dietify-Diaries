@@ -7,15 +7,14 @@ const {
   deleteVideo,
 } = require("../controllers/historyLikeSave.controller");
 const { searchVideoById } = require("../middlewares/paramHandler");
+const { postVideoAfterCheck } = require("../controllers/likedVideos.controller");
 
 router
   .route("/")
   .get(async (req, res, next) => {
     getVideos(req, res, next, LikedVideo, "likes");
   })
-  .post(async (req, res, next) => {
-    postVideo(req, res, next, LikedVideo);
-  });
+  .post(postVideoAfterCheck);
 
 router.param("videoId", async (req, res, next) => {
   searchVideoById(req, res, next, LikedVideo);
