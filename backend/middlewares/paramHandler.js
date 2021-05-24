@@ -3,7 +3,7 @@ const { Playlist } = require("../models/playlist.model");
 
 const videoParamHandler = async (req, res, next, videoId) => {
   try {
-    let video = await Video.findOne({ id: videoId });
+    let video = await Video.findById(videoId);
     if (!video) {
       return res
         .status(400)
