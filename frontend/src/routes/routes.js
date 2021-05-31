@@ -7,6 +7,9 @@ import {
   Saved,
   History,
   NotFound,
+  Login,
+  SignUp,
+  PrivateRoute,
 } from "../components";
 import { Routes, Route } from "react-router-dom";
 
@@ -16,11 +19,16 @@ function RouteList() {
       <Route path="/" element={<Video />} />
       <Route path="/videos" element={<Video />} />
       <Route path="/videos/:videoId" element={<VideoDetail />} />
-      <Route path="/playlists" element={<PlayLists />} />
-      <Route path="/playlists/:playlistId" element={<PlayListDetail />} />
-      <Route path="/liked" element={<Like />} />
-      <Route path="/saved" element={<Saved />} />
-      <Route path="/history" element={<History />} />
+      <PrivateRoute path="/playlists" element={<PlayLists />} />
+      <PrivateRoute
+        path="/playlists/:playlistId"
+        element={<PlayListDetail />}
+      />
+      <PrivateRoute path="/liked" element={<Like />} />
+      <PrivateRoute path="/saved" element={<Saved />} />
+      <PrivateRoute path="/history" element={<History />} />
+      <Route path="/login" element={<Login />} />
+      <Route path="/signup" element={<SignUp />} />
       <Route path="*" element={<NotFound />} />
     </Routes>
   );

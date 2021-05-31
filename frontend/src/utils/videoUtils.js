@@ -1,4 +1,6 @@
-const getDuration = (duration) => {
+import axios from "axios";
+
+export const getDuration = (duration) => {
   const time_extractor = /([0-9]*H)?([0-9]*M)?([0-9]*S)?$/;
   const extracted = time_extractor.exec(duration);
   const hours = parseInt(extracted[1], 10) || 0;
@@ -9,95 +11,82 @@ const getDuration = (duration) => {
   }${seconds < 10 ? "0" + seconds.toString() : seconds}`;
 };
 
-const getPublishedDate = (date) => {
+export const getPublishedDate = (date) => {
   date = new Date(date);
   const options = { month: "short", day: "numeric", year: "numeric" };
   return date.toLocaleDateString("en-GB", options).toString();
 };
 
-const getListDetails = (list, itemId) => {
+export const getListDetails = (list, itemId) => {
   return list.find(({ id }) => id === itemId);
 };
 
-const getPublishDistance = (formatDistance, date) => {
+export const getPublishDistance = (formatDistance, date) => {
   return date ? formatDistance(new Date(date), new Date()) : "";
 };
 
-const getSearchedData = (videoList, searchQuery) => {
+export const getSearchedData = (videoList, searchQuery) => {
   return searchQuery
     ? videoList.filter((video) => compare(video, searchQuery.toLowerCase()))
     : videoList;
 };
 
-const compare = ({ title, channelTitle }, search) => {
+export const compare = ({ title, channelTitle }, search) => {
   return matchData(title, search) || matchData(channelTitle, search);
 };
 
-const matchData = (data, search) => data.toLowerCase().includes(search);
+export const matchData = (data, search) => data.toLowerCase().includes(search);
 
-const checkVideoExists = (list, videoId) => {
+export const checkVideoExists = (list, videoId) => {
   return list.find(({ id, status }) => id === videoId && status !== "deleted");
 };
 
-const addVideo = (list, video) => {
+export const addVideo = (list, video) => {
   return list.concat(video);
 };
 
-const removeVideo = (list, videoId) => {
+export const removeVideo = (list, videoId) => {
   return list.filter(({ id }) => id !== videoId);
 };
 
-const addNewPlaylist = (playlists, playlist) => {
+export const addNewPlaylist = (playlists, playlist) => {
   return playlists.concat(playlist);
 };
 
-const removePlaylist = (list, playlistId) => {
+export const removePlaylist = (list, playlistId) => {
   return list.filter(({ id }) => id !== playlistId);
 };
 
-const updatePlaylist = (playlists, updatedPlaylist) => {
+export const updatePlaylist = (playlists, updatedPlaylist) => {
   return playlists.map((playlist) =>
     playlist.id === updatedPlaylist.id ? updatedPlaylist : playlist
   );
 };
 
-const getFilteredList = (list) => {
+export const getFilteredList = (list) => {
   return list.filter(({ videoList }) => videoList.length > 0);
 };
 
-const addVideoToTop = (list, video) => {
+export const addVideoToTop = (list, video) => {
   return [video, ...list];
 };
 
-const updateVideoPosition = (list, videoId) => {
+export const updateVideoPosition = (list, videoId) => {
   return list.reduce((result, video) => {
     return video.id === videoId ? [video, ...result] : result.concat(video);
   }, []);
 };
 
-const getUpdatedTagData = (list, tag) => {
+export const getUpdatedTagData = (list, tag) => {
   return tag ? list.filter(({ tags }) => tags.includes(tag)) : list;
 };
 
-const getVideoFromList = (list, videoId) => {
+export const getVideoFromList = (list, videoId) => {
   return list.find(({ id }) => id === videoId);
 };
 
-export {
-  getDuration,
-  getPublishedDate,
-  getListDetails,
-  getPublishDistance,
-  checkVideoExists,
-  removeVideo,
-  addVideo,
-  addNewPlaylist,
-  updatePlaylist,
-  getSearchedData,
-  getFilteredList,
-  addVideoToTop,
-  updateVideoPosition,
-  getUpdatedTagData,
-  getVideoFromList,
-  removePlaylist,
+export const setupAuthHeaderForServerCalls = (AUTH_TOKEN) => {
+  return AUTH_TOKEN
+    ? (axios.defaults.headers.common["Authorization"] = AUTH_TOKEN)
+    : delete axios.defaults.headers.common["Authorization"];
 };

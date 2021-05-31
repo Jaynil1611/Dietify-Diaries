@@ -3,14 +3,12 @@ import { actions } from "../reducers";
 import { checkVideoExists } from "../utils";
 import { handleToast } from "../components";
 
-const userId = "60a35a72ffb1fa01498940eb";
-
-const constructURL = () => {
-  return `${process.env.REACT_APP_BACKEND_URL}/users/${userId}`;
+export const constructURL = () => {
+  return `${process.env.REACT_APP_BACKEND_URL}`;
 };
 
 // -------------------- Liked Server Updates ---------------------------------------------
-const getRequestObject = (itemExists, video, resource) => {
+export const getRequestObject = (itemExists, video, resource) => {
   return itemExists
     ? {
         type: "delete",
@@ -23,7 +21,7 @@ const getRequestObject = (itemExists, video, resource) => {
       };
 };
 
-const addOrRemoveVideoFromLiked = async (dispatch, list, video) => {
+export const addOrRemoveVideoFromLiked = async (dispatch, list, video) => {
   const itemExists = checkVideoExists(list, video.id);
   const { response, error } = await callMockServer(
     getRequestObject(itemExists, video, "likes")
@@ -44,7 +42,7 @@ const addOrRemoveVideoFromLiked = async (dispatch, list, video) => {
 };
 
 // -------------------- Disliked Server Updates ---------------------------------------------
-const addOrRemoveVideoFromDisliked = async (dispatch, list, video) => {
+export const addOrRemoveVideoFromDisliked = async (dispatch, list, video) => {
   const itemExists = checkVideoExists(list, video.id);
   const { response, error } = await callMockServer(
     getRequestObject(itemExists, video, "dislikes")
@@ -68,7 +66,7 @@ const addOrRemoveVideoFromDisliked = async (dispatch, list, video) => {
 };
 
 // -------------------- Playlist Server Updates ---------------------------------------------
-const getRequestObjectForPlaylist = (itemExists, playlist, video) => {
+export const getRequestObjectForPlaylist = (itemExists, playlist, video) => {
   return {
     type: "post",
     url: `${constructURL()}/playlists/${playlist.id}`,
@@ -83,13 +81,21 @@ const getRequestObjectForPlaylist = (itemExists, playlist, video) => {
   };
 };
 
-const getUpdatedVideoListForPlaylist = (itemExists, videoList, video) => {
+export const getUpdatedVideoListForPlaylist = (
+  itemExists,
+  videoList,
+  video
+) => {
   return itemExists
     ? videoList.filter(({ id }) => id !== video.id)
     : videoList.concat(video);
 };
 
-const addOrRemoveVideoFromPlaylist = async (dispatch, playlist, video) => {
+export const addOrRemoveVideoFromPlaylist = async (
+  dispatch,
+  playlist,
+  video
+) => {
   const itemExists = checkVideoExists(playlist.videoList, video.id);
   const { response, error } = await callMockServer(
     getRequestObjectForPlaylist(itemExists, playlist, video)
@@ -114,7 +120,7 @@ const addOrRemoveVideoFromPlaylist = async (dispatch, playlist, video) => {
   }
 };
 
-const addPlaylist = async (dispatch, name) => {
+export const addPlaylist = async (dispatch, name) => {
   const { response, error } = await callMockServer({
     type: "post",
     url: `${constructURL()}/playlists`,
@@ -132,7 +138,7 @@ const addPlaylist = async (dispatch, name) => {
   }
 };
 
-const removePlaylist = async (dispatch, playlist) => {
+export const removePlaylist = async (dispatch, playlist) => {
   const { response, error } = await callMockServer({
     type: "delete",
     url: `${constructURL()}/playlists/${playlist.id}`,
@@ -147,7 +153,7 @@ const removePlaylist = async (dispatch, playlist) => {
 };
 
 // -------------------- Save Server Updates ---------------------------------------------
-const addOrRemoveVideoFromSaved = async (dispatch, list, video) => {
+export const addOrRemoveVideoFromSaved = async (dispatch, list, video) => {
   const itemExists = checkVideoExists(list, video.id);
   const { response, error } = await callMockServer(
     getRequestObject(itemExists, video, "saves")
@@ -168,7 +174,7 @@ const addOrRemoveVideoFromSaved = async (dispatch, list, video) => {
 };
 
 // -------------------- History Server Updates ---------------------------------------------
-const addVideoToHistory = async (dispatch, list, video) => {
+export const addVideoToHistory = async (dispatch, list, video) => {
   const itemExists = checkVideoExists(list, video.id);
   if (itemExists) {
     return dispatch({
@@ -188,14 +194,4 @@ const addVideoToHistory = async (dispatch, list, video) => {
       payload: videoResponse,
     });
   }
-};
-
-export {
-  addOrRemoveVideoFromLiked,
-  addOrRemoveVideoFromDisliked,
-  addOrRemoveVideoFromPlaylist,
-  addPlaylist,
-  removePlaylist,
-  addOrRemoveVideoFromSaved,
-  addVideoToHistory,
 };

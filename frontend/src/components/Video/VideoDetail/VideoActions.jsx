@@ -4,6 +4,7 @@ import {
   addOrRemoveVideoFromDisliked,
   addOrRemoveVideoFromSaved,
 } from "../../../server";
+import { handleToast } from "../../Toast/Toast";
 
 const LikeAction = ({ dispatch, likedVideos, video, id }) => (
   <div className="action__container">
@@ -62,13 +63,14 @@ const SaveAction = ({ dispatch, savedVideos, video, id }) => (
   </div>
 );
 
-const ShareAction = ({ id }) => (
+const shareActionHandler = (dispatch, id) => {
+  navigator.clipboard.writeText(`https://www.youtube.com/watch?v=${id}`);
+  handleToast(dispatch, "Link copied to your clipboard");
+};
+
+const ShareAction = ({ id, dispatch }) => (
   <div className="action__container">
-    <OutlineButton
-      onClick={() =>
-        navigator.clipboard.writeText(`https://www.youtube.com/watch?v=${id}`)
-      }
-    >
+    <OutlineButton onClick={() => shareActionHandler(dispatch, id)}>
       <i className="far fa-share fa-lg"></i>
     </OutlineButton>
     <p className="spacing--vh">Share</p>

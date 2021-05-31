@@ -107,7 +107,7 @@ const VideoComponents = ({ video, state, dispatch }) => {
             id={id}
             video={video}
           />
-          <ShareAction id={id} />
+          <ShareAction id={id} dispatch={dispatch} />
         </div>
         <div className="video__channel">
           <img
