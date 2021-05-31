@@ -19,12 +19,10 @@ const getVideos = async (req, res, next, Model, name) => {
 const postVideo = async (req, res, next, Model) => {
   try {
     const { _id: videoId } = req.body;
-    console.log(videoId);
     const { userId } = req;
     const checkVideoExists = await Model.findOne({ videoId });
     if (!checkVideoExists) {
       let newVideo = new Model({ userId, videoId });
-      console.log(newVideo);
       newVideo = await newVideo.save();
       newVideo = await newVideo.populate("videoId").execPopulate();      
       normalizedVideo = getNormalizedVideo(newVideo._doc);
