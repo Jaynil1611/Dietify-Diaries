@@ -88,6 +88,10 @@ const videoReducer = (prevState, { type, payload }) => {
       };
     case actions.UPDATE_TAG:
       return { ...prevState, tag: payload };
+    case actions.UPDATE_USER_DETAILS: {
+      const { firstname, lastname } = payload;
+      return { ...prevState, firstname, lastname };
+    }
     default:
       return prevState;
   }

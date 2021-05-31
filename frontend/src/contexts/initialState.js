@@ -9,4 +9,6 @@ export const initialState = {
   tag: "",
   showToast: false,
   toastMessage: "",
+  firstname: "",
+  lastname: "",
 };

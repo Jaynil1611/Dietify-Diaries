@@ -15,6 +15,8 @@ export {
   getUpdatedTagData,
   getVideoFromList,
   removePlaylist,
+  setupAuthHeaderForServerCalls,
 } from "./videoUtils";
 export { default as useCleaner } from "./useCleaner";
 export { default as useDocumentTitle } from "./useDocumenTitle";
+export { checkEmailAndPassword } from "./loginUtils";

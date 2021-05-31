@@ -15,3 +15,6 @@ export { handleToast } from "./Toast/Toast";
 export { closeToast } from "./Toast/Toast";
 export { default as ScrollToTop } from "./NotFound/ScrollToTop";
 export { OutlineButton } from "./Video/VideoDetail/VideoActions";
+export { default as Login } from "./Login/Login";
+export { default as SignUp } from "./Login/SignUp";
+export { default as PrivateRoute } from "./PrivateRoute/PrivateRoute";

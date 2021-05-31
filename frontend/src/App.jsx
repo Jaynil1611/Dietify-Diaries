@@ -4,10 +4,11 @@ import { NavLink, Link } from "react-router-dom";
 import { ScrollToTop, Toast } from "./components";
 import { RouteList } from "./routes";
 import { useState } from "react";
-import { useCleaner } from "./utils";
+import { setupAuthHeaderForServerCalls, useCleaner } from "./utils";
 
 function App() {
   const [showMenu, setShowMenu] = useState(false);
+  setupAuthHeaderForServerCalls(localStorage.getItem("isUserLoggedIn"));
   const handleSideMenuClick = () => {
     setShowMenu(!showMenu);
   };
@@ -46,7 +47,7 @@ function App() {
           </ul>
         </nav>
       </div>
-      <div className="main-content" >
+      <div className="main-content">
         <div className={`side-bar ${showMenu ? "show" : "side-bar--desktop"}`}>
           <div
             className={`side-menu ${showMenu ? "view" : "side-menu--desktop"}`}
@@ -87,6 +88,7 @@ const menuList = [
   { name: "Liked videos", icon: "fa-thumbs-up", path: "/liked" },
   { name: "Saved", icon: "fa-bookmark", path: "/saved" },
   { name: "History", icon: "fa-history", path: "/history" },
+  { name: "Login", icon: "fa-sign-in-alt", path: "/login" },
 ];
 
 export default App;
