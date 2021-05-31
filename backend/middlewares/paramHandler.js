@@ -22,7 +22,7 @@ const videoParamHandler = async (req, res, next, videoId) => {
 
 const playlistParamHandler = async (req, res, next, playlistId) => {
   try {
-    const { userId } = req.params;
+    const { userId } = req;
     let playlist = await Playlist.findOne({ _id: playlistId, userId });
     if (!playlist) {
       return res
@@ -42,7 +42,8 @@ const playlistParamHandler = async (req, res, next, playlistId) => {
 
 const searchVideoById = async (req, res, next, Model) => {
   try {
-    const { userId, videoId } = req.params;
+    const { videoId } = req.params;
+    const { userId } = req;
     const video = await Model.findOne({ userId, videoId });
     if (!video) {
       return res

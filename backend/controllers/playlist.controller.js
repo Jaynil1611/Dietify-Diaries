@@ -3,7 +3,7 @@ const { extend } = require("lodash");
 
 const getPlaylists = async (req, res, next) => {
   try {
-    const { userId } = req.params;
+    const { userId } = req;
     let playlists = await Playlist.find({ userId }).populate("videoList");
     res.status(200).json({ success: true, playlists });
   } catch (error) {
@@ -13,7 +13,7 @@ const getPlaylists = async (req, res, next) => {
 
 const postPlaylist = async (req, res, next) => {
   try {
-    const { userId } = req.params;
+    const { userId } = req;
     let playlist = req.body;
     const checkPlaylistExists = await Playlist.findOne({
       userId,

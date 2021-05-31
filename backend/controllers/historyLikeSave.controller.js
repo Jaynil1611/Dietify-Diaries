@@ -5,7 +5,7 @@ const {
 
 const getVideos = async (req, res, next, Model, name) => {
   try {
-    const { userId } = req.params;
+    const { userId } = req;
     let videos = await Model.find({ userId })
       .populate("videoId")
       .sort({ createdAt: "desc" });
@@ -19,12 +19,14 @@ const getVideos = async (req, res, next, Model, name) => {
 const postVideo = async (req, res, next, Model) => {
   try {
     const { _id: videoId } = req.body;
-    const { userId } = req.params;
+    console.log(videoId);
+    const { userId } = req;
     const checkVideoExists = await Model.findOne({ videoId });
     if (!checkVideoExists) {
       let newVideo = new Model({ userId, videoId });
+      console.log(newVideo);
       newVideo = await newVideo.save();
-      newVideo = await newVideo.populate("videoId").execPopulate();
+      newVideo = await newVideo.populate("videoId").execPopulate();      
       normalizedVideo = getNormalizedVideo(newVideo._doc);
       return res.status(201).json({ success: true, video: normalizedVideo });
     }
