@@ -40,6 +40,7 @@ app.use("/login", loginRouter);
 app.use("/users", createUserRouter);
 
 app.use(authHandler);
+
 app.use("/users", userRouter);
 app.use("/history", historyRouter);
 app.use("/playlists", playlistRouter);
