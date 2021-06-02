@@ -1,24 +1,41 @@
 import "./styles.css";
 import { useAxios } from "./server";
-import { NavLink, Link } from "react-router-dom";
-import { ScrollToTop, Toast } from "./components";
-import { RouteList } from "./routes";
+import { NavLink, Link, Route, Routes } from "react-router-dom";
 import { useState } from "react";
-import { setupAuthHeaderForServerCalls, useCleaner } from "./utils";
+import {
+  getFilteredMenuList,
+  ScrollToTop,
+  setupAuthHeaderForServerCalls,
+} from "./utils";
+import {
+  PlayListDetail,
+  Video,
+  VideoDetail,
+  PlayLists,
+  Like,
+  Saved,
+  History,
+  NotFound,
+  Login,
+  SignUp,
+  PrivateRoute,
+  Toast,
+  Logout,
+  Avatar,
+} from "./components";
 
 function App() {
   const [showMenu, setShowMenu] = useState(false);
-  setupAuthHeaderForServerCalls(localStorage.getItem("isUserLoggedIn"));
+  const token = JSON.parse(localStorage.getItem("isUserLoggedIn"));
+  setupAuthHeaderForServerCalls(token);
   const handleSideMenuClick = () => {
     setShowMenu(!showMenu);
   };
-
-  useAxios("videos", "videoList");
-  useAxios("playlists", "playlists");
+  const { loadingStatus: videoStatus } = useAxios("videos", "videoList", false);
+  const { loadingStatus: playlistStatus } = useAxios("playlists", "playlists");
   useAxios("likes", "likedVideos");
   useAxios("saves", "savedVideos");
-  useAxios("history", "history");
-  useCleaner();
+  const { loadingStatus: historyStatus } = useAxios("history", "history");
 
   return (
     <>
@@ -36,13 +53,7 @@ function App() {
         <nav className="spacing--top">
           <ul className="nav nav--right">
             <li>
-              <Link className="text--gray badge__container" to="/">
-                <img
-                  className="img--xs"
-                  src={`https://ui-avatars.com/api/?name=Jaynil+Gaglani&rounded=true&background=fd7014&color=fff&size=32`}
-                  alt=""
-                />
-              </Link>
+              <Avatar />
             </li>
           </ul>
         </nav>
@@ -53,29 +64,53 @@ function App() {
             className={`side-menu ${showMenu ? "view" : "side-menu--desktop"}`}
           >
             <ul className="list__group li--border sidebar--scroll">
-              {menuList.map(({ name, icon, path }) => (
-                <li key={name} className="list__item li--border spacing--sm">
-                  <NavLink
-                    end
-                    onClick={handleSideMenuClick}
-                    to={`${path}`}
-                    className="active"
-                    activeClassName="active"
-                  >
-                    <span className="padding--right-md">
-                      <i className={`fas ${icon} icon--md`}></i>
-                    </span>
-                    <span className="subtitle--sm">{name}</span>
-                  </NavLink>
-                </li>
-              ))}
+              {getFilteredMenuList(menuList, token).map(
+                ({ name, icon, path }) => (
+                  <li key={name} className="list__item li--border spacing--sm">
+                    <NavLink
+                      end
+                      onClick={handleSideMenuClick}
+                      to={`${path}`}
+                      className="active"
+                      activeClassName="active"
+                    >
+                      <span className="padding--right-md">
+                        <i className={`fas ${icon} icon--md`}></i>
+                      </span>
+                      <span className="subtitle--sm">{name}</span>
+                    </NavLink>
+                  </li>
+                )
+              )}
             </ul>
           </div>
         </div>
         <div className="video__display">
           <Toast />
           <ScrollToTop />
-          <RouteList />
+          <Routes>
+            <Route path="/" element={<Video loading={videoStatus} />} />
+            <Route path="/videos" element={<Video />} />
+            <Route path="/videos/:videoId" element={<VideoDetail />} />
+            <PrivateRoute
+              path="/playlists"
+              element={<PlayLists loading={playlistStatus} />}
+            />
+            <PrivateRoute
+              path="/playlists/:playlistId"
+              element={<PlayListDetail />}
+            />
+            <PrivateRoute path="/liked" element={<Like />} />
+            <PrivateRoute path="/saved" element={<Saved />} />
+            <PrivateRoute
+              path="/history"
+              element={<History loading={historyStatus} />}
+            />
+            <Route path="/login" element={<Login />} />
+            <Route path="/signup" element={<SignUp />} />
+            <Route path="/logout" element={<Logout />} />
+            <Route path="*" element={<NotFound />} />
+          </Routes>
         </div>
       </div>
     </>

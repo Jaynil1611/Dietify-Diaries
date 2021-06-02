@@ -8,6 +8,6 @@ export default function useCleaner() {
   const { pathname } = useLocation();
 
   useEffect(() => {
-    closeToast(dispatch);
-  }, [pathname]);
+    if (pathname !== "/login") closeToast(dispatch);
+  }, [dispatch, pathname]);
 }

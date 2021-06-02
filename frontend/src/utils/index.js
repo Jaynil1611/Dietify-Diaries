@@ -16,7 +16,14 @@ export {
   getVideoFromList,
   removePlaylist,
   setupAuthHeaderForServerCalls,
+  setupAuthExceptionHandler,
 } from "./videoUtils";
 export { default as useCleaner } from "./useCleaner";
-export { default as useDocumentTitle } from "./useDocumenTitle";
-export { checkEmailAndPassword } from "./loginUtils";
+export { default as useDocumentTitle } from "./useDocumentTitle";
+export {
+  checkEmailAndPassword,
+  checkAuthStatus,
+  getFormValues,
+  getFilteredMenuList,
+} from "./loginUtils";
+export { default as ScrollToTop } from "./ScrollToTop";

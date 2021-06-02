@@ -1,9 +1,18 @@
-import { createContext, useContext, useReducer, useState } from "react";
+import {
+  createContext,
+  useContext,
+  useEffect,
+  useReducer,
+  useState,
+} from "react";
 import { videoReducer, actions } from "../reducers";
 import { callMockServer } from "../server";
 import { initialState } from "./initialState";
 import { constructURL } from "../server";
-import { setupAuthHeaderForServerCalls } from "../utils";
+import {
+  setupAuthHeaderForServerCalls,
+  setupAuthExceptionHandler,
+} from "../utils";
 import { handleToast } from "../components";
 
 const VideoContext = createContext();
@@ -14,10 +23,13 @@ export const useVideo = () => {
 
 const VideoContextProvider = ({ children }) => {
   const [state, dispatch] = useReducer(videoReducer, initialState);
-  const savedToken = localStorage.getItem("isUserLoggedIn");
   const [token, setToken] = useState(
-    savedToken ? JSON.parse(savedToken) : null
+    JSON.parse(localStorage.getItem("isUserLoggedIn"))
   );
+
+  useEffect(() => {
+    setupAuthExceptionHandler(dispatch);
+  }, []);
 
   const loginUser = async (email, password) => {
     const { response, error } = await callMockServer({

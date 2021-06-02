@@ -1,6 +1,8 @@
 import { Navigate, Route } from "react-router";
+import { useVideo } from "../../contexts";
 
-function PrivateRoute({ token, path, element }) {
+function PrivateRoute({ path, element }) {
+  const {token} = useVideo()
   return (
     <>
       {token ? (

@@ -1,6 +1,31 @@
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import { useVideo } from "../../contexts";
+import {
+  checkEmailAndPassword,
+  getFormValues,
+  useDocumentTitle,
+} from "../../utils";
+import { handleToast } from "../Toast/Toast";
 import "./Login.css";
+
 function Login() {
+  const { loginUser, dispatch } = useVideo();
+  const navigate = useNavigate();
+  useDocumentTitle("Login");
+
+  const handleUserLogin = async (email, password) => {
+    return (await loginUser(email, password)) ? navigate("/") : navigate("");
+  };
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    const { email, password } = getFormValues(e, "login");
+    if (checkEmailAndPassword(email, password)) {
+      return handleUserLogin(email, password);
+    }
+    handleToast(dispatch, "User credentials are not valid");
+  };
+
   return (
     <>
       <div className="login__container">
@@ -9,11 +34,11 @@ function Login() {
             <h2> Login </h2>
           </div>
           <div className="text--left margin--md">
-            <form>
+            <form onSubmit={handleSubmit}>
               <div className="login__input-container" role="group">
                 <label
                   id="email-label"
-                  for="email-input"
+                  htmlFor="email-input"
                   className="input__container subtitle--sm text--bold"
                 >
                   Email
@@ -30,20 +55,20 @@ function Login() {
               <div className="login__input-container" role="group">
                 <label
                   id="password-label"
-                  for="password-input"
+                  htmlFor="password-input"
                   className="input__container margin--top subtitle--sm text--bold"
                 >
                   Password
                   <span className="required text--primary">*</span>
                 </label>
                 <input
-                  type="email"
-                  name="email"
+                  type="password"
+                  name="password"
                   id="password-input"
                   className="login__input"
                   required
                 />
-                <div className="label--helper body--md">
+                <div className="label--helper body--md text--gray">
                   Password should be of 6 characters (including one letter &
                   number)
                 </div>
@@ -52,7 +77,7 @@ function Login() {
             </form>
             <div className="margin--top spacing--vh text--center">
               New to Dietify
-              <Link to="/sigup" className="join-now">
+              <Link to="/signup" className="join-now">
                 Join now
               </Link>
             </div>

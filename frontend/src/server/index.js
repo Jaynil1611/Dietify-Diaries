@@ -10,4 +10,6 @@ export {
   addOrRemoveVideoFromSaved,
   addVideoToHistory,
   constructURL,
+  signUpUser,
+  getUserDetails,
 } from "./ServerUpdate";

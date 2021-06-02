@@ -10,7 +10,7 @@ import {
   useDocumentTitle,
 } from "../../utils";
 
-function Video() {
+function Video({ loading }) {
   const {
     state: { videoList, search, tag },
     dispatch,
@@ -28,9 +28,13 @@ function Video() {
       >
         <Tags dispatch={dispatch} />
       </div>
-      <div className="video-container">
-        <VideoListing videoList={taggedData} />
-      </div>
+      {loading ? (
+        <span className="loading"></span>
+      ) : (
+        <div className="video-container">
+          <VideoListing videoList={taggedData} />
+        </div>
+      )}
     </div>
   );
 }

@@ -3,7 +3,7 @@ import { useVideo } from "../../contexts";
 import { useDocumentTitle } from "../../utils";
 import { VideoListing, PlayListHeading } from "../index";
 
-function History() {
+function History({ loading }) {
   const {
     state: { history },
   } = useVideo();
@@ -11,7 +11,9 @@ function History() {
 
   return (
     <div>
-      {history ? (
+      {loading ? (
+        <span className="loading"></span>
+      ) : (
         <>
           <PlayListHeading
             name="History"
@@ -20,8 +22,6 @@ function History() {
           />
           <VideoListing videoList={history} type={"history"} />
         </>
-      ) : (
-        <div>History Loading</div>
       )}
     </div>
   );

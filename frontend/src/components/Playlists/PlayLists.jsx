@@ -5,22 +5,31 @@ import { getFilteredList, useDocumentTitle } from "../../utils";
 import { PlayListView } from "../index";
 import "./PlayLists.css";
 
-function PlayLists() {
+function PlayLists({ loading }) {
   const {
     state: { playlists, likedVideos, savedVideos },
   } = useVideo();
   useDocumentTitle("Playlists");
 
+  const checkEmptyPlaylists = () => {
+    return playlists.length || likedVideos.length || savedVideos.length
+      ? false
+      : true;
+  };
+
   return (
     <>
-      {playlists.length === 0 && likedVideos.length === 0 ? (
-        <div className="subtitle--md text--bold spacing">
-          Loading Playlists...
-        </div>
+      {loading ? (
+        <span className="loading"></span>
       ) : (
         <>
           <div className="subtitle--md text--bold spacing">Your Playlists</div>
           <div className="playlist__container">
+            {checkEmptyPlaylists() && (
+              <div className="subtitle--md spacing text--gray">
+                Your playlists are empty
+              </div>
+            )}
             {getFilteredList(playlists).map((playlist) => {
               const { name, id, videoList } = playlist;
               return (

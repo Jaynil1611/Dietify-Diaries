@@ -195,3 +195,38 @@ export const addVideoToHistory = async (dispatch, list, video) => {
     });
   }
 };
+
+// -------------------- User Server Updates ---------------------------------------------
+export const signUpUser = async ({
+  dispatch,
+  firstname,
+  lastname,
+  email,
+  password,
+}) => {
+  const { error } = await callMockServer({
+    type: "post",
+    url: `${constructURL()}/users`,
+    data: { firstname, lastname, email, password },
+  });
+  if (!error) {
+    handleToast(dispatch, "Sign up successful");
+    return true;
+  }
+  handleToast(dispatch, "Sign up failed!");
+  return false;
+};
+
+export const getUserDetails = async (dispatch) => {
+  const { response, error } = await callMockServer({
+    type: "get",
+    url: `${constructURL()}/users/user`,
+  });
+  if (!error) {
+    const { firstname, lastname } = response?.data.user;
+    dispatch({
+      type: actions.UPDATE_USER_DETAILS,
+      payload: { firstname, lastname },
+    });
+  }
+};

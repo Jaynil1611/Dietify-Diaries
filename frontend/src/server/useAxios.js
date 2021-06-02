@@ -3,13 +3,14 @@ import { useVideo } from "../contexts";
 import { callMockServer } from "./index";
 import { actions } from "../reducers";
 import { constructURL } from "./ServerUpdate";
+import { checkAuthStatus } from "../utils";
 
-export default function useAxios(resource, name) {
+export default function useAxios(resource, name, isAuthRequired) {
   const { dispatch, token } = useVideo();
   const [loadingStatus, setLoadingStatus] = useState(false);
   const [error, setError] = useState(false);
   useEffect(() => {
-    if (token) {
+    if (checkAuthStatus(token, isAuthRequired)) {
       setLoadingStatus(true);
       (async () => {
         try {
@@ -18,7 +19,7 @@ export default function useAxios(resource, name) {
             error,
           } = await callMockServer({
             type: "get",
-            url: constructURL(resource),
+            url: `${constructURL()}/${resource}`,
           });
           if (!error) {
             dispatch({
@@ -33,7 +34,7 @@ export default function useAxios(resource, name) {
         }
       })();
     }
-  }, [dispatch, name, resource, token]);
+  }, []);
 
   return { loadingStatus, error };
 }

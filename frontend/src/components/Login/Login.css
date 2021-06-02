@@ -4,11 +4,11 @@
   justify-content: center;
   width: 100%;
   margin-top: 9rem;
-  /* border-color: var(--light-color); */
+  border-color: var(--light-color);
 }
 
 .login__box {
-  padding: 2rem;
+  padding: 1rem;
   padding-bottom: 1rem;
   border: 1px solid #e2e8f0;
   border-radius: 8px;
@@ -63,7 +63,6 @@
 
 .label--helper {
   margin-top: 1rem;
-  color: var(--secondary-color);
   line-height: normal;
 }
 
@@ -87,7 +86,7 @@
 }
 
 .button--submit:hover {
-  background-color: var(--focus-color-primary);
+  background-color: var(--hover-color-primary);
 }
 
 .button--submit:focus {
@@ -106,13 +105,15 @@
 
 .join-now:hover {
   text-decoration: underline;
-  background: var(--light-color);
+  background: var(--light-primary-color);
   border-radius: 1rem;
   padding: 0.5rem;
 }
 
 @media screen and (min-width: 648px) {
   .login__box {
-    width: 50%;
+    width: 40%;
+    padding: 1.5rem;
+    padding-bottom: 0;
   }
 }
