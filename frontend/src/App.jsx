@@ -5,6 +5,7 @@ import { useState } from "react";
 import {
   getFilteredMenuList,
   ScrollToTop,
+  menuList,
   setupAuthHeaderForServerCalls,
 } from "./utils";
 import {
@@ -116,14 +117,5 @@ function App() {
     </>
   );
 }
-
-const menuList = [
-  { name: "Home", icon: "fa-home-alt", path: "/" },
-  { name: "Playlists", icon: "fa-folder", path: "/playlists" },
-  { name: "Liked videos", icon: "fa-thumbs-up", path: "/liked" },
-  { name: "Saved", icon: "fa-bookmark", path: "/saved" },
-  { name: "History", icon: "fa-history", path: "/history" },
-  { name: "Login", icon: "fa-sign-in-alt", path: "/login" },
-];
 
 export default App;

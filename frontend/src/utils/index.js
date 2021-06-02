@@ -25,5 +25,6 @@ export {
   checkAuthStatus,
   getFormValues,
   getFilteredMenuList,
+  menuList,
 } from "./loginUtils";
 export { default as ScrollToTop } from "./ScrollToTop";

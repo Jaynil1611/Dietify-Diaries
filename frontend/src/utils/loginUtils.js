@@ -34,3 +34,12 @@ export const getFormValues = (e, type) => {
 export const getFilteredMenuList = (menuList, token) => {
   return token ? menuList.filter(({ name }) => name !== "Login") : menuList;
 };
+
+export const menuList = [
+  { name: "Home", icon: "fa-home-alt", path: "/" },
+  { name: "Playlists", icon: "fa-folder", path: "/playlists" },
+  { name: "Liked videos", icon: "fa-thumbs-up", path: "/liked" },
+  { name: "Saved", icon: "fa-bookmark", path: "/saved" },
+  { name: "History", icon: "fa-history", path: "/history" },
+  { name: "Login", icon: "fa-sign-in-alt", path: "/login" },
+];
