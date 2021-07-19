@@ -34,7 +34,7 @@ export default function useAxios(resource, name, isAuthRequired) {
         }
       })();
     }
-  }, []);
+  }, [dispatch, token]);
 
   return { loadingStatus, error };
 }
