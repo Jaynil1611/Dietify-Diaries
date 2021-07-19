@@ -4,11 +4,9 @@ const { postVideo } = require("./historyLikeSave.controller");
 
 const postVideoAfterCheck = async (req, res, next) => {
   const { _id: videoId } = req.body;
+  const { userId } = req;
   try {
-    const likedVideoExists = await LikedVideo.findOne({ videoId });
-    if (likedVideoExists) {
-      await likedVideoExists.delete();
-    }
+    await LikedVideo.findOneAndDelete({ videoId, userId });
     postVideo(req, res, next, DislikedVideo);
   } catch (error) {
     next(error);
