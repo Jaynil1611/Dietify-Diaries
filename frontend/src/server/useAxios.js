@@ -6,11 +6,16 @@ import { constructURL } from "./ServerUpdate";
 import { checkAuthStatus } from "../utils";
 
 export default function useAxios(resource, name, isAuthRequired) {
-  const { dispatch, token } = useVideo();
+  const {
+    state: { videoList },
+    dispatch,
+    token,
+  } = useVideo();
   const [loadingStatus, setLoadingStatus] = useState(false);
   const [error, setError] = useState(false);
   useEffect(() => {
     if (checkAuthStatus(token, isAuthRequired)) {
+      if (videoList.length > 0 && !isAuthRequired) return;
       setLoadingStatus(true);
       (async () => {
         try {

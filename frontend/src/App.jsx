@@ -33,10 +33,14 @@ function App() {
     setShowMenu(!showMenu);
   };
   const { loadingStatus: videoStatus } = useAxios("videos", "videoList", false);
-  const { loadingStatus: playlistStatus } = useAxios("playlists", "playlists");
-  useAxios("likes", "likedVideos");
-  useAxios("saves", "savedVideos");
-  const { loadingStatus: historyStatus } = useAxios("history", "history");
+  const { loadingStatus: playlistStatus } = useAxios(
+    "playlists",
+    "playlists",
+    true
+  );
+  useAxios("likes", "likedVideos", true);
+  useAxios("saves", "savedVideos", true);
+  const { loadingStatus: historyStatus } = useAxios("history", "history", true);
 
   return (
     <>
