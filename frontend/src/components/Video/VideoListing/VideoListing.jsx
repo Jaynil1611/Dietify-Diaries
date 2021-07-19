@@ -16,14 +16,8 @@ function VideoListing({ videoList, playlist, type }) {
   return (
     <div className="video-showcase">
       {videoList.map((video) => {
-        const {
-          id,
-          channelTitle,
-          duration,
-          title,
-          publishedAt,
-          thumbnailUrl,
-        } = video;
+        const { id, channelTitle, duration, title, publishedAt, thumbnailUrl } =
+          video;
         getDuration(duration);
         return (
           <div key={id} className="video__wrapper">
@@ -37,6 +31,7 @@ function VideoListing({ videoList, playlist, type }) {
                 </div>
                 <div className="video__captions">
                   <img
+                    loading="lazy"
                     className="img--rounded img--msm spacing--sm"
                     src={`https://yt3.ggpht.com/ytc/AAUvwnjljnAGd_7gxeF5gJMR12-ZKEbhOJkXpggQp8_I7A=s100-c-k-c0x00ffffff-no-rj`}
                     alt=""

@@ -17,7 +17,7 @@ export const getRequestObject = (itemExists, video, resource) => {
     : {
         type: "post",
         url: `${constructURL()}/${resource}`,
-        data: video,
+        data: { _id: video._id },
       };
 };
 
@@ -174,25 +174,33 @@ export const addOrRemoveVideoFromSaved = async (dispatch, list, video) => {
 };
 
 // -------------------- History Server Updates ---------------------------------------------
+const getRequestObjectForHistory = (itemExists, video) => {
+  return {
+    type: "post",
+    url: itemExists
+      ? `${constructURL()}/history/${video._id}`
+      : `${constructURL()}/history`,
+    data: { _id: video._id },
+  };
+};
+
 export const addVideoToHistory = async (dispatch, list, video) => {
   const itemExists = checkVideoExists(list, video.id);
-  if (itemExists) {
-    return dispatch({
-      type: actions.UPDATE_HISTORY,
-      payload: { id: video.id, shuffle: true },
-    });
-  }
-  const { response, error } = await callMockServer({
-    type: "post",
-    url: `${constructURL()}/history`,
-    data: video,
-  });
+  console.log("hist", itemExists);
+  const { response, error } = await callMockServer(
+    getRequestObjectForHistory(itemExists, video)
+  );
   if (!error) {
     const { video: videoResponse } = response.data;
-    dispatch({
-      type: actions.UPDATE_HISTORY,
-      payload: videoResponse,
-    });
+    itemExists
+      ? dispatch({
+          type: actions.UPDATE_HISTORY,
+          payload: { id: video.id, shuffle: true },
+        })
+      : dispatch({
+          type: actions.UPDATE_HISTORY,
+          payload: videoResponse,
+        });
   }
 };
 

@@ -120,7 +120,7 @@ ul {
   background: var(--light-color);
 }
 
-@media screen and (min-width: 992px) {
+@media screen and (min-width: 768px) {
   .main-content {
     margin-top: 10%;
   }

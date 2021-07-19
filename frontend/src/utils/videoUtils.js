@@ -39,7 +39,7 @@ export const compare = ({ title, channelTitle }, search) => {
 export const matchData = (data, search) => data.toLowerCase().includes(search);
 
 export const checkVideoExists = (list, videoId) => {
-  return list.find(({ id, status }) => id === videoId && status !== "deleted");
+  return list.find(({ id }) => id === videoId);
 };
 
 export const addVideo = (list, video) => {

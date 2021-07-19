@@ -11,6 +11,7 @@ const PlayListView = ({ name, videoList }) => (
           <div className="playlist--overlay">
             <div>{videoList.length}</div>
             <img
+              loading="lazy"
               className="img--xs"
               src="https://img.icons8.com/fluent-systems-filled/48/ffffff/video-playlist.png"
               alt=""

@@ -111,6 +111,7 @@ const VideoComponents = ({ video, state, dispatch }) => {
         </div>
         <div className="video__channel">
           <img
+            loading="lazy"
             className="img--rounded img--vsm"
             src={`https://yt3.ggpht.com/ytc/AAUvwnjljnAGd_7gxeF5gJMR12-ZKEbhOJkXpggQp8_I7A=s100-c-k-c0x00ffffff-no-rj`}
             alt=""
@@ -130,7 +131,7 @@ const VideoComponents = ({ video, state, dispatch }) => {
 
 const opts = {
   playerVars: {
-    // autoplay: 1,
+    autoplay: 1,
     modestbranding: 1,
   },
 };
