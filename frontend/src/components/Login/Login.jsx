@@ -26,6 +26,11 @@ function Login() {
     handleToast(dispatch, "User credentials are not valid");
   };
 
+  const fillGuestCredentials = (e) => {
+    e.target.form[0].value = "diaries@test.com";
+    e.target.form[1].value = "diary123";
+  };
+
   return (
     <>
       <div className="login__container">
@@ -72,6 +77,15 @@ function Login() {
                   Password should be of 6 characters (including one letter &
                   number)
                 </div>
+              </div>
+              <div className="text--center">
+                <button
+                  type="button"
+                  className="button--submit button--width"
+                  onClick={fillGuestCredentials}
+                >
+                  Fill Guest Credentials
+                </button>
               </div>
               <button className="button--submit subtitle--sm">Sign In</button>
             </form>
