@@ -19,14 +19,15 @@ function Video({ loading }) {
 
   const searchedData = getSearchedData(videoList, search);
   const taggedData = getUpdatedTagData(searchedData, tag);
+  const clearTag = () => {
+    dispatch({ type: actions.UPDATE_TAG, payload: "" });
+  };
+
   return (
     <div>
       <SearchBar dispatch={dispatch} />
-      <div
-        className="scroll--hover"
-        onBlur={() => dispatch({ type: actions.UPDATE_TAG, payload: "" })}
-      >
-        <Tags dispatch={dispatch} />
+      <div className="scroll--hover" onBlur={clearTag}>
+        <Tags clearTag={clearTag} dispatch={dispatch} />
       </div>
       {loading ? (
         <span className="loading"></span>
@@ -59,11 +60,16 @@ export const SearchBar = ({ dispatch }) => {
   );
 };
 
-export const Tags = ({ dispatch }) => (
+export const Tags = ({ dispatch, clearTag }) => (
   <ul
     className="list--inline display__tags"
     onClick={(e) => e.stopPropagation()}
   >
+    <li className="list__item list__item--border">
+      <SecondaryButton className="tag--transform" onClick={clearTag}>
+        All Categories
+      </SecondaryButton>
+    </li>
     {tags.map((tag) => (
       <li key={tag} className="list__item list__item--border">
         <SecondaryButton
