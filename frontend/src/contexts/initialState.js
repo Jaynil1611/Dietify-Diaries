@@ -9,6 +9,7 @@ export const initialState = {
   tag: "",
   showToast: false,
   toastMessage: "",
+  toastStatus: "",
   firstname: "",
   lastname: "",
 };

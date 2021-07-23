@@ -18,6 +18,7 @@ import {
   ShareAction,
 } from "./VideoActions";
 import { PlayListModal } from "../../index";
+import { handleToast } from "../../Toast/Toast";
 
 function VideoDetail() {
   const { videoId } = useParams();
@@ -54,7 +55,7 @@ const VideoComponents = ({ video, state, dispatch }) => {
     const value = e.target.form[0].value;
     value
       ? addPlaylist(dispatch, value)
-      : alert("Playlist name cannot be empty");
+      : handleToast(dispatch, "Playlist name cannot be empty", "error");
     e.target.form.reset();
   };
 

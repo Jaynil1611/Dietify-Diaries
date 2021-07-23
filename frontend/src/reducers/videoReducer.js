@@ -81,10 +81,12 @@ const videoReducer = (prevState, { type, payload }) => {
           : addVideoToTop(prevState.history, payload),
       };
     case actions.OPEN_OR_CLOSE_TOAST:
+      const { show, text, status } = payload;
       return {
         ...prevState,
-        showToast: payload.show,
-        toastMessage: payload.text,
+        showToast: show,
+        toastMessage: text,
+        toastStatus: status,
       };
     case actions.UPDATE_TAG:
       return { ...prevState, tag: payload };

@@ -4,6 +4,7 @@
   top: 6rem;
   right: 0.1rem;
   padding: 0.5rem;
+  align-items: center;
   bottom: auto;
   background: var(--secondary-color);
 }
@@ -17,5 +18,9 @@
   .toast--position {
     right: 1rem;
     padding: 1rem;
+  }
+
+  .toast__content {
+    height: 1.5rem;
   }
 }
