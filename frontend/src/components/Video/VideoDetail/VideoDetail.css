@@ -75,6 +75,7 @@
   text-overflow: ellipsis;
   overflow: hidden;
   width: 100%;
+  font-size: 0.9rem;
 }
 
 .video__desc--content a {
@@ -172,17 +173,13 @@ input[type="checkbox"] {
     padding-top: 30%;
   }
 
-  .video__player {
-    width: 60%;
-    height: 100%;
-  }
-
   .video__desc--content {
     white-space: break-spaces;
-    -webkit-line-clamp: 9;
+    -webkit-line-clamp: 15;
   }
 
-  .video__detail {
-    max-width: 60%;
+  .video__layout {
+    margin-left: 3rem;
+    margin-right: 2rem;
   }
 }

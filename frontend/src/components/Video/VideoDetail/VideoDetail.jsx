@@ -35,7 +35,7 @@ function VideoDetail() {
   }, [videoList, videoId]);
 
   return (
-    <div>
+    <div className="video__layout">
       <VideoComponents video={currentVideo} state={state} dispatch={dispatch} />
     </div>
   );
@@ -117,9 +117,9 @@ const VideoComponents = ({ video, state, dispatch }) => {
             src={`https://yt3.ggpht.com/ytc/AAUvwnjljnAGd_7gxeF5gJMR12-ZKEbhOJkXpggQp8_I7A=s100-c-k-c0x00ffffff-no-rj`}
             alt=""
           />
-          <div className="title spacing--sm">{channelTitle}</div>
+          <div className="subtitle--md text--bold spacing--sm">{channelTitle}</div>
         </div>
-        <div className="video__desc body--md">
+        <div className="video__desc subtitle--sm">
           <p>Published on {getPublishedDate(publishedAt)}</p>
           <div className="video__desc--content">
             <Linkify>{description}</Linkify>
