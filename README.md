@@ -6,9 +6,9 @@
 - Built UI using my component library Mind UI involving 14 components & full-stack authentication provided by JWT.
 
 ## Live Demo
-View the live demo of the application here 👉 [Dietify](https://dietify.vercel.app/).
+View the live demo of the application here 👉 [Dietify Diaries](https://dietify-diaries.vercel.app/).
 
-View the deployed the backend application here 👉 [Dietify Backend](https://dietify-backend.vercel.app/)
+View the deployed the backend application here 👉 [Dietify Diaries Backend](https://dietify-diaries-backend.vercel.app/)
 
 ## Application View
 
