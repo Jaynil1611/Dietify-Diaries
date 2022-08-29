@@ -1,14 +1,14 @@
 {
-  "name": "Dietify-Diaries",
+  "name": "dietify-diaries-backend",
   "version": "1.0.0",
-  "description": "",
+  "description": "backend code of dietify-diaries",
   "main": "index.js",
   "scripts": {
     "start": "node index.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [],
-  "author": "",
+  "author": "Jaynil Gaglani",
   "license": "ISC",
   "dependencies": {
     "bcrypt": "^5.0.1",

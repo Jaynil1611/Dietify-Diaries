@@ -77,7 +77,6 @@ function App() {
                       onClick={handleSideMenuClick}
                       to={`${path}`}
                       className="active"
-                      activeClassName="active"
                     >
                       <span className="padding--right-md">
                         <i className={`fas ${icon} icon--md`}></i>
@@ -97,19 +96,45 @@ function App() {
             <Route path="/" element={<Video loading={videoStatus} />} />
             <Route path="/videos" element={<Video />} />
             <Route path="/videos/:videoId" element={<VideoDetail />} />
-            <PrivateRoute
+            <Route
               path="/playlists"
-              element={<PlayLists loading={playlistStatus} />}
+              element={
+                <PrivateRoute>
+                  <PlayLists loading={playlistStatus} />
+                </PrivateRoute>
+              }
             />
-            <PrivateRoute
+            <Route
               path="/playlists/:playlistId"
-              element={<PlayListDetail />}
+              element={
+                <PrivateRoute>
+                  <PlayListDetail />
+                </PrivateRoute>
+              }
             />
-            <PrivateRoute path="/liked" element={<Like />} />
-            <PrivateRoute path="/saved" element={<Saved />} />
-            <PrivateRoute
+            <Route
+              path="/liked"
+              element={
+                <PrivateRoute>
+                  <Like />
+                </PrivateRoute>
+              }
+            />
+            <Route
+              path="/saved"
+              element={
+                <PrivateRoute>
+                  <Saved />
+                </PrivateRoute>
+              }
+            />
+            <Route
               path="/history"
-              element={<History loading={historyStatus} />}
+              element={
+                <PrivateRoute>
+                  <History loading={historyStatus} />
+                </PrivateRoute>
+              }
             />
             <Route path="/login" element={<Login />} />
             <Route path="/signup" element={<SignUp />} />

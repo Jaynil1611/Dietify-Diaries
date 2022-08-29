@@ -8,7 +8,7 @@ import {
   getVideoFromList,
 } from "../../../utils";
 import { addPlaylist, addVideoToHistory } from "../../../server";
-import Linkify from "linkifyjs/react";
+import Linkify from "linkify-react";
 import { useVideo } from "../../../contexts";
 import {
   LikeAction,
