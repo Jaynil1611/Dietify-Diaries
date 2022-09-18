@@ -10,8 +10,9 @@ View the live demo of the application here 👉 [Dietify Diaries](https://dietif
 
 View the deployed the backend application here 👉 [Dietify Diaries Backend](https://dietify-diaries-backend.vercel.app/)
 
-## Application View
-![dietify-diaries vercel app](https://user-images.githubusercontent.com/48921037/188202931-5af31ea9-2f4f-482e-b68b-3b8e07ae6738.png)
+## Application View!
+
+![dietify-diaries vercel app](https://user-images.githubusercontent.com/48921037/190903502-6694cbe6-ff6d-4dfe-9c43-814503650df8.png)
 
 
 ## Technologies Used
